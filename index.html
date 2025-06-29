@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Sistema de Coletores</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="images/clipboard_1195513.png" type="image/x-icon"/>
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+  <div class="container">
+    <form class="form" id="login-form">
+      <h2>Login</h2>
+      <div class="form-group">
+        <label for="usuario">Usuário</label>
+        <input type="text" id="usuario" required>
+      </div>
+
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" required>
+      </div>
+
+      <div class="erro-loguim"></div>
+
+      <div class="area-botao" style="display: flex; justify-content: center;">
+        <button type="button" onclick="login()">Entrar</button>
+      </div>
+
+      <!-- ✅ ID adicionado aqui -->
+     
+    </form>
+
+    <form class="form hidden" id="cadastro-form">
+      <h2>Cadastro de Usuário</h2>
+      <div class="form-group">
+        <label for="novoUsuario">Novo Usuário</label>
+        <input type="text" id="novoUsuario" required>
+      </div>
+
+      <div class="form-group">
+        <label for="novaSenha">Nova Senha</label>
+        <input type="password" id="novaSenha" required>
+      </div>
+
+      <div class="cadastro_usuario">
+        <div class="log-usuario"></div>
+        <button type="button" onclick="cadastrarUsuario()">Cadastrar</button>
+      </div>
+
+      <p id="linkcadastro" class="link-cadastro" onclick="mostrarLogin()">Voltar para login</p>
+    </form>
+  </div>
+
+  <script src="js/script.js"></script>
+
+  <footer class="rodape-sistema">
+    <div class="rodape-conteudo">
+      <p>© 2025 Sistema de Coletores | Suporte:
+        <a href="mailto:gilson.araujo@jsl.com.br" target="_blank">
+          gilson.araujo@jsl.com.br
+        </a>
+      </p>
+      <p>Telefone para contato: <a href="tel:+550000000000">(35) 9974-48246</a></p>
+    </div>
+  </footer>
+
+  <!-- ✅ SCRIPT DE CONTROLE DE ACESSO -->
+  <script>
+    window.onload = function () {
+      const tipoUsuario = localStorage.getItem("tipoUsuario");
+      const token = localStorage.getItem("token");
+
+      const linkCadastro = document.getElementById("linkCadastro");
+
+      if (!token || tipoUsuario !== "admin") {
+        // Oculta o botão e remove o formulário se não for admin
+        if (linkCadastro) linkCadastro.style.display = "none";
+        const formCadastro = document.getElementById("cadastro-form");
+        if (formCadastro) formCadastro.remove();
+      }
+    }
+  </script>
+</body>
+</html>

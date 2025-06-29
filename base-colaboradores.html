@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Base de Colaboradores</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="images/clipboard_1195513.png" type="image/x-icon"/>
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+
+  <div class="barra-superior">
+    <div class="lado-esquerdo">
+      <a href="dashboard.html" class="icone-home" title="Voltar para Home">🏠</a>
+    </div>
+    <div class="lado-direito usuario-logado">
+      <span id="usuarioLogadoTexto"></span>
+      <button onclick="logout()">Sair</button>
+    </div>
+  </div>
+  <hr style="border: 0.5; opacity: 0.3;">
+
+  <div class="container">
+    <h2>Cadastro de Colaboradores</h2>
+
+    <form id="formColaborador" class="form">
+      <div class="form-group">
+        <label for="matricula">Matrícula</label>
+        <input type="text" id="matricula" required>
+      </div>
+      <div class="form-group">
+        <label for="nome_completo">Nome Completo</label>
+        <input type="text" id="nome_completo" required>
+      </div>
+      <div class="form-group">
+        <label for="turno">Turno</label>
+        <select id="turno" required>
+          <option value="">Selecione</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="setor">Setor</label>
+        <select id="setor" required>
+          <option value="">Selecione</option>
+          <option value="Separação">Separação</option>
+          <option value="Expedição">Expedição</option>
+          <option value="Inbound">Inbound</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="encarregado">Encarregado</label>
+        <select id="encarregado" required>
+          <option value="">Selecione</option>
+          <option value="Jefferson">Jefferson</option>
+          <option value="Yasmim">Yasmim</option>
+          <option value="Dany">Dany</option>
+        </select>
+      </div>
+      <button type="submit">Cadastrar</button>
+    </form>
+
+    <div id="mensagem" class="mensagem-alerta" style="display: none;"></div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Matrícula</th>
+          <th>Nome</th>
+          <th>Turno</th>
+          <th>Setor</th>
+          <th>Encarregado</th>
+          <th>Acões</th>
+        </tr>
+      </thead>
+      <tbody id="tabela-colaboradores"></tbody>
+    </table>
+  </div>
+
+  <script>
+    const baseURL = "http://localhost:3000/api/colaboradores";
+    const form = document.getElementById("formColaborador");
+    const mensagem = document.getElementById("mensagem");
+    const tabela = document.getElementById("tabela-colaboradores");
+  
+    let editandoMatricula = null; // controle de edição
+  
+    function exibirMensagem(texto, tipo) {
+      mensagem.textContent = texto;
+      mensagem.className = `mensagem-alerta ${tipo}`;
+      mensagem.style.display = "block";
+      setTimeout(() => mensagem.style.display = "none", 3000);
+    }
+  
+    function carregarColaboradores() {
+      fetch(baseURL)
+        .then(res => res.json())
+        .then(data => {
+          tabela.innerHTML = "";
+          data.forEach(colab => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${colab.matricula}</td>
+              <td>${colab.nome_completo}</td>
+              <td>${colab.turno}</td>
+              <td>${colab.setor}</td>
+              <td>${colab.encarregado}</td>
+              <td>
+                <button onclick="editarColaborador('${colab.matricula}')">Editar</button>
+                <button id="atualizar-${colab.matricula}" onclick="confirmarAtualizacao('${colab.matricula}')" disabled>Atualizar</button>
+                <button onclick="excluirColaborador('${colab.matricula}')">Excluir</button>
+              </td>
+            `;
+            tabela.appendChild(tr);
+          });
+        });
+    }
+  
+    async function excluirColaborador(matricula) {
+      if (!confirm("Tem certeza que deseja excluir este colaborador?")) return;
+  
+      try {
+        const res = await fetch(`${baseURL}/${matricula}`, { method: "DELETE" });
+        if (!res.ok) throw new Error();
+        exibirMensagem("Colaborador excluído com sucesso!", "success");
+        carregarColaboradores();
+      } catch {
+        exibirMensagem("Erro ao excluir colaborador.", "error");
+      }
+    }
+    
+
+    function confirmarAtualizacao(matricula) {
+      document.querySelector("form").dispatchEvent(new Event("submit")); // força o envio do formulário
+    }
+
+    function editarColaborador(matricula) {
+      fetch(`${baseURL}/${matricula}`)
+        .then(res => res.json())
+        .then(colab => {
+          document.getElementById("matricula").value = colab.matricula;
+          document.getElementById("nome_completo").value = colab.nome_completo;
+          document.getElementById("turno").value = colab.turno;
+          document.getElementById("setor").value = colab.setor;
+          document.getElementById("encarregado").value = colab.encarregado;
+          editandoMatricula = matricula;
+
+          // Habilita o botão de atualizar da linha correspondente
+          document.querySelectorAll("button[id^='atualizar-']").forEach(btn => btn.disabled = true);
+          const btnAtualizar = document.getElementById(`atualizar-${matricula}`);
+          if (btnAtualizar) btnAtualizar.disabled = false;
+      });
+    }
+
+  
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+  
+      const dados = {
+        matricula: document.getElementById("matricula").value.trim(),
+        nome_completo: document.getElementById("nome_completo").value.trim(),
+        turno: document.getElementById("turno").value,
+        setor: document.getElementById("setor").value,
+        encarregado: document.getElementById("encarregado").value
+      };
+  
+      if (!dados.matricula || !dados.nome_completo || !dados.turno || !dados.setor || !dados.encarregado) {
+        exibirMensagem("Preencha todos os campos.", "error");
+        return;
+      }
+  
+      try {
+        const metodo = editandoMatricula ? "PUT" : "POST";
+        const url = editandoMatricula ? `${baseURL}/${editandoMatricula}` : baseURL;
+  
+        const res = await fetch(url, {
+          method: metodo,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(dados)
+        });
+  
+        if (!res.ok) throw new Error();
+  
+        exibirMensagem(editandoMatricula ? "Colaborador atualizado!" : "Colaborador cadastrado!", "success");
+        form.reset();
+        editandoMatricula = null;
+        form.querySelector("button[type='submit']").textContent = "Cadastrar";
+        carregarColaboradores();
+      } catch {
+        exibirMensagem("Erro ao salvar colaborador.", "error");
+      }
+    });
+  
+    window.onload = () => {
+      carregarColaboradores();
+      const usuario = localStorage.getItem("usuarioLogado");
+      if (usuario) {
+        document.getElementById("usuarioLogadoTexto").textContent = `Usuário: ${usuario}`;
+      }
+    };
+  
+    function logout() {
+      localStorage.removeItem("usuarioLogado");
+      localStorage.removeItem("token");
+      window.location.href = "index.html";
+    }
+  </script>
+
+<footer class="rodape-sistema">
+  <div class="rodape-conteudo">
+    <p>© 2025 Sistema de Coletores | Suporte: 
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=gilson.araujo@jsl.com.br.com&su=Suporte%20-%20Sistema%20de%20Coletores&body=Olá,%20gostaria%20de%20tirar%20uma%20dúvida%20ou%20fazer%20uma%20sugestão."
+         target="_blank">
+         gilson.araujo@jsl.com.br
+      </a>
+    </p>
+    <p>Telefone para contato: <a href="tel:+550000000000">(35) 9974-48246</a></p>
+  </div>
+</footer>
+</body>
+</html>

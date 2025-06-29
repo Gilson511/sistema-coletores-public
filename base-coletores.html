@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Base de Coletores</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="images/clipboard_1195513.png" type="image/x-icon"/>
+  <link rel="stylesheet" href="css/estilo.css" />
+</head>
+<body>
+  <header class="usuario-logado">
+    <p id="usuarioLogadoTexto"></p>
+    <button onclick="logout()" style="margin-left: 20px;">Sair</button>
+
+  </header>
+
+  <hr style="border: 0.5; opacity: 0.3;">
+  
+  <main class="conteudo-dashboard-rf">
+    <h1>Base de Coletores</h1>
+
+    <form id="form-coletor">
+      <input type="text" id="numero" placeholder="Número do coletor" required />
+      <input type="text" id="marca" placeholder="Marca (ex: Zebra)" required />
+      <input type="text" id="sn" placeholder="SN (identificador único)" required />
+    </form>
+
+    <form id="cadastrar-coletor">
+      <button type="submit">Cadastrar</button>
+    </form>
+   
+    <br>
+    <br>
+    <a href="dashboard.html" class="icone-home" title="Voltar ao menu" style="font-size: 32px;">🏠</a>
+
+    <h2>Lista de Coletores</h2>
+    <table id="tabela-coletores">
+      <thead>
+        <tr>
+          <th>Número do Coletor</th>
+          <th>Marca</th>
+          <th>SN</th>
+          <th>Acões</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div class="log_erro"></div>
+  </main>
+
+
+  <script src="js/base-coletores.js"></script>
+  <footer class="rodape-sistema">
+    <div class="rodape-conteudo">
+      <p>© 2025 Sistema de Coletores | Suporte: 
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=gilson.araujo@jsl.com.br.com&su=Suporte%20-%20Sistema%20de%20Coletores&body=Olá,%20gostaria%20de%20tirar%20uma%20dúvida%20ou%20fazer%20uma%20sugestão."
+           target="_blank">
+           gilson.araujo@jsl.com.br
+        </a>
+      </p>
+      <p>Telefone para contato: <a href="tel:+550000000000">(35) 9974-48246</a></p>
+    </div>
+  </footer>
+</body>
+</html>
