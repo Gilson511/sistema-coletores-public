@@ -27,7 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const estaLogado = !!localStorage.getItem('usuarioLogado');
 
-    fetch('http://localhost:3000/api/basecoletores')
+    fetch('http://192.168.0.106:3000/api/basecoletores')
+
       .then(res => res.json())
       .then(coletores => {
           tbody.innerHTML = '';
@@ -64,7 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
   
     try {
       // Primeiro busca os dados da base pelo ID
-      const baseRes = await fetch(`http://localhost:3000/api/basecoletores`);
+      const baseRes = await fetch('http://192.168.0.106:3000/api/basecoletores')
+;
       const baseData = await baseRes.json();
       const coletorBase = baseData.find(c => c.id == id);
   
@@ -74,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   
       // Agora verifica se o número do coletor está em uso
-      const coletoresRes = await fetch("http://localhost:3000/api/coletores");
+      const coletoresRes = await fetch('http://192.168.0.106:3000/api/basecoletores');
       const coletoresUso = await coletoresRes.json();
   
       const estaEmUso = coletoresUso.some(c => c.numero_coletor === coletorBase.numero_coletor);
@@ -94,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
          return;
       }
 
-      const res = await fetch(`http://localhost:3000/api/basecoletores/${id}`, {
+      const res = await fetch(`http://192.168.0.106:3000/api/basecoletores/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization':  'Bearer ' + token
@@ -140,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     
-    fetch('http://localhost:3000/api/basecoletores', {
+    fetch('http://192.168.0.106:3000/api/basecoletores', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ numero_coletor: numero, marca, sn })
