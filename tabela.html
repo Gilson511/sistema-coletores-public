@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <title>Lista de Coletores</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  <link rel="icon" href="images/clipboard_1195513.png" type="image/x-icon"/>
+  <link rel="icon" href="images/clipboard_1195513.png" type="image/x-icon" />
   <link rel="stylesheet" href="css/estilo.css">
 </head>
+
 <body>
   <div class="pai">
-    <a href="dashboard.html" class="icone-home" title="Voltar ao menu">🏠</a>
+
     <div class="usuario-logado">
       <p id="usuarioLogadoTexto"></p>
       <button onclick="logout()">Sair</button>
+          <a href="dashboard.html" class="icone-home" title="Voltar ao menu">🏠</a>
+
     </div>
   </div>
   <hr style="border: 0.5;opacity: 0.3;">
@@ -21,38 +25,38 @@
     <h2>Dados Cadastrados dos Coletores</h2>
 
     <div class="status-log"></div>
-<table id="tabelaColetores">
-  <thead>
-    <tr>
-      <th><span>RE</span></th>
-      <th><span>Nome</span></th>
-      <th><span>Nº Coletor</span></th>
-      <th><span>Encarregado</span></th>
-      <th><span>Turno</span></th>
-      <th><span>Setor</span></th>
-      <th><span>Pegou Coletor</span></th>
-      <th><span>Deu Baixa</span></th>
-      <th><span>Observações</span></th>
-      <th style="width: 250px;"><span>Ações</span></th>
+    <table id="tabelaColetores">
+      <thead>
+        <tr>
+          <th><span>RE</span></th>
+          <th><span>Nome</span></th>
+          <th><span>Nº Coletor</span></th>
+          <th><span>Encarregado</span></th>
+          <th><span>Turno</span></th>
+          <th><span>Setor</span></th>
+          <th><span>Pegou Coletor</span></th>
+          <th><span>Deu Baixa</span></th>
+          <th><span>Observações</span></th>
+          <th style="width: 250px;"><span>Ações</span></th>
 
-    </tr>
-    <tr>
-      <th><input type="text" placeholder="Filtrar RE" onkeyup="filtrarTabela(0, this.value)" /></th>
-      <th><input type="text" placeholder="Filtrar Nome" onkeyup="filtrarTabela(1, this.value)" /></th>
-      <th><input type="text" placeholder="Filtrar Nº Coletor" onkeyup="filtrarTabela(2, this.value)" /></th>
-      <th><input type="text" placeholder="Filtrar Encarregado" onkeyup="filtrarTabela(3, this.value)" /></th>
-      <th><input type="text" placeholder="Filtrar Turno" onkeyup="filtrarTabela(4, this.value)" /></th>
-      <th><input type="text" placeholder="Filtrar Setor" onkeyup="filtrarTabela(5, this.value)" /></th>
-      <th><input type="text" placeholder="Filtrar retirada" onkeyup="filtrarTabela(6, this.value)" /></th>
-      <th><input type="text" placeholder="Filtrar baixa" onkeyup="filtrarTabela(7, this.value)" /></th>
-      <th><input type="text" placeholder="Filtrar Obs" onkeyup="filtrarTabela(8, this.value)" /></th>
-      <th>❌</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- As linhas da tabela são carregadas dinamicamente -->
-  </tbody>
-</table>  
+        </tr>
+        <tr>
+          <th><input type="text" placeholder="Filtrar RE" onkeyup="filtrarTabela(0, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar Nome" onkeyup="filtrarTabela(1, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar Nº Coletor" onkeyup="filtrarTabela(2, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar Encarregado" onkeyup="filtrarTabela(3, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar Turno" onkeyup="filtrarTabela(4, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar Setor" onkeyup="filtrarTabela(5, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar retirada" onkeyup="filtrarTabela(6, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar baixa" onkeyup="filtrarTabela(7, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar Obs" onkeyup="filtrarTabela(8, this.value)" /></th>
+          <th>❌</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- As linhas da tabela são carregadas dinamicamente -->
+      </tbody>
+    </table>
     <div style="text-align: right; margin-top: 10px;">
       <button onclick="limparFiltros()">Limpar Filtros</button>
     </div>
@@ -124,8 +128,8 @@
             <td><input value="${coletor.encarregado}" disabled /></td>
             <td><input value="${coletor.turno}" disabled /></td>
             <td><input value="${coletor.setor}" disabled /></td>
-            <td><input value="${new Date(coletor.hora_pegou).toISOString().slice(0,16)}" type="datetime-local" disabled /></td>
-            <td><input value="${new Date(coletor.hora_baixa).toISOString().slice(0,16)}" type="datetime-local" disabled /></td>
+            <td><input value="${new Date(coletor.hora_pegou).toISOString().slice(0, 16)}" type="datetime-local" disabled /></td>
+            <td><input value="${new Date(coletor.hora_baixa).toISOString().slice(0, 16)}" type="datetime-local" disabled /></td>
             <td><input value="${coletor.estado}" disabled /></td>
             <td>
               <button onclick="editarColetor(this, ${coletor.id})">Editar</button>
@@ -195,9 +199,9 @@
           log.style.fontSize = '12px';
           log.innerHTML = `✅ O número informado: ${numero_coletor} foi atualizado com sucesso.`;
 
-          setTimeout(()=>{
+          setTimeout(() => {
             log.innerHTML = '';
-          },2000);
+          }, 2000);
 
           carregarColetores();
         })
@@ -232,60 +236,60 @@
     }
 
     function exportarExcel() {
-        const tabelaOriginal = document.getElementById("tabelaColetores");
+      const tabelaOriginal = document.getElementById("tabelaColetores");
 
-        // Clona a tabela
-        const tabelaClone = tabelaOriginal.cloneNode(true);
+      // Clona a tabela
+      const tabelaClone = tabelaOriginal.cloneNode(true);
 
-        // Substitui todos os <input> pelo texto que eles contêm
-        tabelaClone.querySelectorAll("input").forEach(input => {
-          const span = document.createElement("span");
-          span.textContent = input.value;
-          input.parentNode.replaceChild(span, input);
-        });
+      // Substitui todos os <input> pelo texto que eles contêm
+      tabelaClone.querySelectorAll("input").forEach(input => {
+        const span = document.createElement("span");
+        span.textContent = input.value;
+        input.parentNode.replaceChild(span, input);
+      });
 
-        // Remove a segunda linha do <thead> (linha de filtros)
-        const thead = tabelaClone.querySelector("thead");
-        if (thead && thead.rows.length > 1) {
-          thead.deleteRow(1); // remove a linha de filtros (segunda linha do cabeçalho)
-        }
+      // Remove a segunda linha do <thead> (linha de filtros)
+      const thead = tabelaClone.querySelector("thead");
+      if (thead && thead.rows.length > 1) {
+        thead.deleteRow(1); // remove a linha de filtros (segunda linha do cabeçalho)
+      }
 
-        // Remove última célula de cada linha (botões)
-        tabelaClone.querySelectorAll("tr").forEach(tr => {
-          const ultimaCelula = tr.lastElementChild;
-          if (ultimaCelula) ultimaCelula.remove();
-        });
+      // Remove última célula de cada linha (botões)
+      tabelaClone.querySelectorAll("tr").forEach(tr => {
+        const ultimaCelula = tr.lastElementChild;
+        if (ultimaCelula) ultimaCelula.remove();
+      });
 
 
-        const wb = XLSX.utils.book_new();
-        const ws = XLSX.utils.table_to_sheet(tabelaClone);
-        XLSX.utils.book_append_sheet(wb, ws, "Coletores");
-        XLSX.writeFile(wb, "coletores.xlsx");
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.table_to_sheet(tabelaClone);
+      XLSX.utils.book_append_sheet(wb, ws, "Coletores");
+      XLSX.writeFile(wb, "coletores.xlsx");
     }
 
 
   </script>
 
   <script>
-function filtrarTabela(colunaIndex, valor) {
-  const tabela = document.getElementById("tabelaColetores");
-  const linhas = tabela.querySelector("tbody").rows;
-  const filtro = valor.toLowerCase();
+    function filtrarTabela(colunaIndex, valor) {
+      const tabela = document.getElementById("tabelaColetores");
+      const linhas = tabela.querySelector("tbody").rows;
+      const filtro = valor.toLowerCase();
 
-  for (let i = 0; i < linhas.length; i++) {
-    const celula = linhas[i].cells[colunaIndex];
-    const conteudo = celula?.querySelector("input")?.value.toLowerCase() || "";
-    linhas[i].style.display = conteudo.includes(filtro) ? "" : "none";
-  }
-}
+      for (let i = 0; i < linhas.length; i++) {
+        const celula = linhas[i].cells[colunaIndex];
+        const conteudo = celula?.querySelector("input")?.value.toLowerCase() || "";
+        linhas[i].style.display = conteudo.includes(filtro) ? "" : "none";
+      }
+    }
 
-function limparFiltros() {
-  const filtros = document.querySelectorAll("#tabelaColetores thead input");
-  filtros.forEach(input => input.value = "");
+    function limparFiltros() {
+      const filtros = document.querySelectorAll("#tabelaColetores thead input");
+      filtros.forEach(input => input.value = "");
 
-  const linhas = document.querySelectorAll("#tabelaColetores tbody tr");
-  linhas.forEach(linha => linha.style.display = "");
-}
+      const linhas = document.querySelectorAll("#tabelaColetores tbody tr");
+      linhas.forEach(linha => linha.style.display = "");
+    }
 
 
     fetch("http://localhost:3000/api/coletores/teste-delete")
@@ -296,11 +300,12 @@ function limparFiltros() {
 
   <footer class="rodape-sistema">
     <div class="rodape-conteudo">
-      <p>© 2025 Sistema de Coletores | Suporte: 
+      <p>© 2025 Sistema de Coletores | Suporte:
         <a href="mailto:gilson.araujo@jsl.com.br" target="_blank">gilson.araujo@jsl.com.br</a>
       </p>
       <p>Telefone para contato: <a href="tel:+550000000000">(35) 9974-48246</a></p>
     </div>
   </footer>
 </body>
+
 </html>
