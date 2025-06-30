@@ -152,10 +152,23 @@
 
         if (valor_usado >= 1) {
           document.getElementById('r').style.color = 'red';
+        } else {
+
         }
         if (valor_armazen < valor_total) {
           document.getElementById('b').style.color = 'red';
         }
+
+        if (valor_usado == 0) {
+          let arrayIds = ['c', 'r', 'b'];
+
+          arrayIds.forEach(id => {
+            document.getElementById(id).style.color = 'green';
+          })
+
+
+        }
+
 
         document.getElementById('c').innerHTML += ` ${valor_total}`;
         document.getElementById('r').innerHTML += ` ${valor_usado}`;
