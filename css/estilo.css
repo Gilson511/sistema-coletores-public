@@ -256,7 +256,7 @@ td button:hover {
 
 
 .menu-lateral {
-  width: 250px;
+  width: 200px;
   background-color: #1b103f;
   padding: 30px 20px;
   color: #fff;
@@ -308,7 +308,7 @@ td button:hover {
 .menu-lateral ul li a {
   color: #fff;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 12px;
   padding: 10px;
   display: block;
   transition: background-color 0.3s;
@@ -328,7 +328,7 @@ td button:hover {
   padding: 40px;
   background-color: rgba(31, 119, 137, 0.2);
   color: #fff;
-  margin-top: 30px;
+  margin-top: 40px;
 
 }
 
