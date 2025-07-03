@@ -5,12 +5,20 @@
   font-family: 'Poppins', sans-serif;
 }
 
+canvas {
+  background-color: #1e1e2f;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
 html,
 body {
   background-color: #1b103f;
   color: #ffffff;
   height: 100%;
   width: auto;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 

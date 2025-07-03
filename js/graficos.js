@@ -20,45 +20,86 @@ function agruparPorData(lista, campoData, dias = "todos") {
     return acc;
   }, {});
 }
+
+
 function gerarGrafico(canvasId, tipo, labels, dados, titulo, cores = null) {
   const ctx = document.getElementById(canvasId).getContext("2d");
 
-  // Verifica se já existe um gráfico anterior e destrói corretamente
+  // Destrói gráfico anterior se existir
   if (window[canvasId] instanceof Chart) {
     window[canvasId].destroy();
   }
 
+  const paleta = cores || [
+    "#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14F", "#EDC948", "#B07AA1", "#FF9DA7"
+  ];
+
   window[canvasId] = new Chart(ctx, {
-    type: tipo,
+    type: "bar",
     data: {
       labels: labels,
       datasets: [{
         label: titulo,
         data: dados,
-        backgroundColor: cores || [
-          "#f39c12", "#3498db", "#2ecc71", "#e74c3c", "#9b59b6"
-        ],
-        borderColor: "#fff",
-        borderWidth: 1
+        backgroundColor: paleta,
+        borderRadius: 10, // cantos arredondados
+        borderSkipped: false, // remove cortes nas barras
+        barThickness: 40
       }]
     },
     options: {
       responsive: true,
       plugins: {
-        legend: { labels: { color: "white" }},
+        legend: {
+          display: false // remove legenda repetitiva
+        },
         title: {
           display: true,
           text: titulo,
-          color: "white"
+          color: "#ffffff",
+          font: {
+            size: 18,
+            weight: "bold",
+            family: "'Segoe UI', sans-serif"
+          },
+          padding: { top: 10, bottom: 20 }
+        },
+        tooltip: {
+          backgroundColor: "#333",
+          titleFont: { weight: 'bold' },
+          bodyFont: { family: "'Segoe UI', sans-serif" },
+          borderColor: "#888",
+          borderWidth: 1
         }
       },
-      scales: tipo === "bar" || tipo === "line" ? {
-        x: { ticks: { color: "white" }},
-        y: { ticks: { color: "white" }}
-      } : {}
+      scales: {
+        x: {
+          ticks: {
+            color: "#ffffff",
+            font: { size: 12 }
+          },
+          grid: {
+            color: "rgba(255,255,255,0.1)"
+          }
+        },
+        y: {
+          ticks: {
+            color: "#ffffff",
+            font: { size: 12 }
+          },
+          grid: {
+            color: "rgba(255,255,255,0.1)"
+          },
+          beginAtZero: true
+        }
+      }
     }
   });
 }
+
+
+
+
 
 async function gerarGraficosFiltrados() {
   const filtroDias = document.getElementById("filtroData").value;

@@ -149,14 +149,16 @@
         const valor_usado = coletores.length;
         const valor_armazen = valor_total - valor_usado;
         document.getElementById("total-coletores-armazen").textContent = valor_armazen;
-
+        document.getElementById('c').style.fontWeight = 'bold';
         if (valor_usado >= 1) {
-          document.getElementById('r').style.color = 'red';
+          document.getElementById('r').style.color = 'pink';
+          document.getElementById('r').style.fontWeight = '700';
         } else {
 
         }
         if (valor_armazen < valor_total) {
-          document.getElementById('b').style.color = 'red';
+          document.getElementById('b').style.color = 'gray';
+          document.getElementById('b').style.fontWeight = 'bold';
         }
 
         if (valor_usado == 0) {
