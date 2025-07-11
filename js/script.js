@@ -2,7 +2,7 @@ function login() {
   const usuario = document.getElementById("usuario").value;
   const senha = document.getElementById("senha").value;
 
-  fetch("http://localhost:3000/api/usuarios/login", {
+  fetch("https://sistema-coletores-backend-2.onrender.com/usuarios", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
