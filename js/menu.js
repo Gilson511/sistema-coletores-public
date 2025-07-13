@@ -1,42 +1,41 @@
-// Função para abrir/fechar o menu lateral com transição suave
 function openMenu() {
-    const menu = document.querySelector('.menu-lateral');
-    menu.classList.toggle('ativo');
+  const menu = document.querySelector('.menu-lateral');
+  const conteudo = document.querySelector('.conteudo-dashboard');
+  const icone = document.querySelector('.menu-lateral .icone-menu');
+
+  const menuAtivo = menu.classList.toggle('ativo');
+
+  conteudo.style.transition = 'all 0.3s ease';
+
+  if (menuAtivo) {
+    conteudo.style.marginLeft = '200px';
+    conteudo.style.opacity = '0.8';
+    icone.textContent = '✖'; // muda para "X"
+    icone.classList.add('menu-aberto');
+    icone.classList.remove('menu-fechado');
+    icone.setAttribute('title', 'Fechar menu'); // ✔ CORRETO
+  } else {
+    conteudo.style.marginLeft = '0';
+    icone.textContent = '☰'; // muda para hambúrguer
+    icone.classList.remove('menu-aberto');
+    icone.classList.add('menu-fechado');
+    icone.setAttribute('title', 'Abrir menu'); // ✔ CORRETO
+  }
+
+  setTimeout(() => {
+    conteudo.style.opacity = '1';
+  }, 300);
 }
 
-// Eventos para os dois ícones de menu, se existirem
 document.addEventListener('DOMContentLoaded', () => {
-    const iconHeader = document.getElementById('icone-menu-header');
-    const iconLateral = document.getElementById('icone-menu-lateral');
+  const iconHeader = document.getElementById('icone-menu-header');
+  const iconLateral = document.getElementById('icone-menu-lateral');
 
-    if (iconHeader) {
-        iconHeader.addEventListener('click', () => {
-            openMenu();
-            // se abre o menu lateral 
-           let conteudo =  document.querySelector('.conteudo-dashboard');
-            conteudo.style.transition = 'all 0.3s ease';
-            conteudo.style.marginLeft = '200px';
-            conteudo.style.opacity = '0.8';
+  if (iconHeader) {
+    iconHeader.addEventListener('click', openMenu);
+  }
 
-            setTimeout(()=> {
-                conteudo.style.opacity = '1';
-            },300)
-          
-
-
-        });
-
-    }
-
-    if (iconLateral) {
-
-        iconLateral.addEventListener('click', () => {
-            openMenu();
-            // se fechar menu
-            document.querySelector('.conteudo-dashboard').style.marginLeft = 0;
-        });
-
-    }
+  if (iconLateral) {
+    iconLateral.addEventListener('click', openMenu);
+  }
 });
-
-
