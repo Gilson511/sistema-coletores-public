@@ -76,7 +76,7 @@
   <script src="libs/html2pdf.bundle.min.js"></script>
 
   <script>
-    const baseURL = "http://localhost:3000/api/coletores";
+    const baseURL = "https://sistema-coletores-backend-4.onrender.com/api/coletores/api/coletores";
 
     window.onload = function () {
       const usuario = localStorage.getItem("usuarioLogado");
@@ -99,7 +99,7 @@
       try {
         const [coletoresRes, colaboradoresRes] = await Promise.all([
           fetch(baseURL),
-          fetch("http://localhost:3000/api/colaboradores")
+          fetch("https://sistema-coletores-backend-4.onrender.com/api/coletores/api/colaboradores")
         ]);
 
         const coletores = await coletoresRes.json();
@@ -152,7 +152,7 @@
 
     async function validarNumeroNaBase(numero) {
       try {
-        const resposta = await fetch("http://localhost:3000/api/basecoletores");
+        const resposta = await fetch("https://sistema-coletores-backend-4.onrender.com/api/coletores/api/basecoletores");
         const base = await resposta.json();
         return base.some(c => c.numero_coletor === numero);
       } catch (err) {
@@ -292,7 +292,7 @@
     }
 
 
-    fetch("http://localhost:3000/api/coletores/teste-delete")
+    fetch("https://sistema-coletores-backend-4.onrender.com/api/coletores/api/coletores/teste-delete")
       .then(res => res.text())
       .then(console.log)
       .catch(console.error);

@@ -1,6 +1,6 @@
 // js/tabela.js - Versão atualizada usando API REST (backend Express)
 
-const baseURL = "http://localhost:3000/api/coletores";
+const baseURL = "https://sistema-coletores-backend-4.onrender.com/api/coletores";
 
 window.onload = function () {
   const usuario = localStorage.getItem("usuarioLogado");

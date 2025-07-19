@@ -87,7 +87,7 @@
       const token = localStorage.getItem("token");
 
       try {
-        const res = await fetch("http://localhost:3000/api/usuarios", {
+        const res = await fetch("https://sistema-coletores-backend-4.onrender.com/api/usuarios", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -125,7 +125,7 @@
 
       try {
         // Verifica se o número existe na base
-        const respostaBase = await fetch("http://localhost:3000/api/basecoletores");
+        const respostaBase = await fetch("https://sistema-coletores-backend-4.onrender.com/api/basecoletores");
         const baseColetores = await respostaBase.json();
         const numeroExisteNaBase = baseColetores.some(c => c.numero_coletor === numeroInformado);
 
@@ -136,7 +136,7 @@
         }
 
         // Verifica se já existe na tabela de registros
-        const respostaTabela = await fetch("http://localhost:3000/api/coletores");
+        const respostaTabela = await fetch("https://sistema-coletores-backend-4.onrender.com/api/coletores");
         const registros = await respostaTabela.json();
         const duplicado = registros.some(c => c.numero_coletor === numeroInformado);
 
@@ -156,7 +156,7 @@
           estado: document.getElementById("estado").value
         };
 
-        const response = await fetch("http://localhost:3000/api/coletores", {
+        const response = await fetch("https://sistema-coletores-backend-4.onrender.com/api/coletores", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(coletor)
