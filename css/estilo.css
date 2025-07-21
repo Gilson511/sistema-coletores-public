@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +8,7 @@
 }
 
 canvas {
-  background-color: #1e1e2f;
+  background-color: #002855;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 30px;
@@ -14,23 +16,20 @@ canvas {
 
 html,
 body {
-  background-color: #1b103f;
-  color: #ffffff;
+  background-color: #F2F2F2;
+  color: #002855;
   height: 100%;
   width: auto;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
-
 
 .usuario-logado {
   display: flex;
   position: fixed;
   right: 0;
-  /* Alinha à direita */
   top: 0;
-  /* Opcional: posiciona no topo */
   width: 100%;
-  background-color: #1b103f;
+  background-color: #1b1b1b1b;
 }
 
 .usuario-logado a {
@@ -45,7 +44,6 @@ body {
   height: 16px;
   cursor: pointer;
   z-index: 1000;
-  /* Fica por cima de outros elementos */
 }
 
 .icone-menu {
@@ -59,14 +57,13 @@ body {
   height: 16px;
   cursor: pointer;
   z-index: 1000;
-  /* Fica por cima de outros elementos */
 }
 
 .icone-menu div {
-  height: 2.4px;
+  height: 4px;
   width: 100%;
   left: 5px;
-  background-color: #fff;
+  background-color: #FFFFFF;
   border-radius: 9px;
 }
 
@@ -75,7 +72,7 @@ h2 {
   margin-bottom: 20px;
   font-weight: 300;
   font-size: 28px;
-  color: #fff;
+  color: #E03C31;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -86,18 +83,19 @@ h2 {
   max-width: 500px;
   align-content: center;
   margin: auto;
-
 }
 
 form input {
-  border: 1px solid #f39c12;
+  border: 1px solid #008E8D;
   outline: none;
   font-size: 14px;
   transition: border 0.3s;
   border-radius: 5px;
-  background-color: #ffffff;
-
+  background-color: #FFFFFF;
 }
+
+
+/*-------------*/
 
 .form-group {
   display: flex;
@@ -106,32 +104,32 @@ form input {
 
 label {
   margin-bottom: 5px;
-  color: #ffffff;
+  color: #1B1B1B; /* branco puro */
 }
 
 input,
 select {
   padding: 10px;
-  border: 1px solid #ff6b5e;
+  border: 1px solid #008E8D; /* teal da JSL */
   border-radius: 5px;
-  background-color: #fff;
-  color: #000;
+  background-color: #FFFFFF;
+  color: #1B1B1B; /* preto suave */
 }
 
 input::placeholder {
-  color: #888;
+  color: #777777;
 }
 
 select option {
-  background-color: #000;
-  color: #ffffff;
+  background-color: #1B1B1B; /* preto suave */
+  color: #FFFFFF;
 }
 
 button {
-  background-color: #fff;
+  background-color: #F04C23; /* coral escuro da JSL */
   max-width: 120px;
   font-size: 12px;
-  color: #000;
+  color: #FFFFFF;
   padding: 6px 15px 6px 15px;
   border: none;
   border-radius: 5px;
@@ -141,11 +139,11 @@ button {
 }
 
 button:hover {
-  background-color: #ff6b5e;
+  background-color: #FF866E; /* tom mais claro do coral */
 }
 
 .link-cadastro {
-  color: #ff6b5e;
+  color: #FF866E; /* coral claro */
   text-align: center;
   margin-top: 15px;
   cursor: pointer;
@@ -160,8 +158,8 @@ button:hover {
 .btn-voltar {
   display: inline-block;
   max-width: 120px;
-  background-color: #fff;
-  color: #000;
+  background-color: #FFFFFF;
+  color: #1B1B1B;
   padding: 4px 5px 4px 5px;
   font-size: 12px;
   font-weight: bold;
@@ -173,12 +171,12 @@ button:hover {
 }
 
 .btn-voltar:hover {
-  background-color: #ff6b5e;
+  background-color: #FF866E;
 }
 
 .btn-voltar::before {
-  background-color: #ff6b5e;
-  color: #ffffff;
+  background-color: #FF866E;
+  color: #FFFFFF;
 }
 
 .container {
@@ -189,6 +187,17 @@ button:hover {
   padding: 20px;
   overflow-x: auto;
 }
+
+.icone-home .material-icons {
+  font-size: 28px;
+  color: #D5001C; /* vermelho escuro JSL */
+  transition: 0.3s ease;
+}
+
+.icone-home .material-icons:hover {
+  color: #A60016; /* tom mais escuro ao passar o mouse */
+}
+
 
 table {
   width: 100%;
@@ -201,13 +210,15 @@ table td {
   text-transform: uppercase;
 }
 
+/* bloco 2 fim*/
+
 table input {
   width: 100%;
   padding: 4px;
   font-size: 10px;
-  background-color: #2c2c2c;
-  color: #ffffff;
-  border: 1px solid #666666;
+  background-color: #E8E8E8; /* cinza claro */
+  color: #1B1B1B;
+  border: 1px solid #CCCCCC;
   border-radius: 3px;
   text-align: center;
 }
@@ -216,15 +227,15 @@ th,
 td {
   padding: 6px 10px;
   height: auto;
-  border: 1px solid #666666;
+  border: 1px solid #CCCCCC;
   text-align: center;
 }
 
 th {
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #ffffff;
+  background-color: #D5001C; /* vermelho JSL */
+  color: #FFFFFF;
   font-size: 12px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   transition: all 0.2s ease;
 }
 
@@ -238,21 +249,20 @@ th span:hover {
   transform: scale(1.4);
 }
 
-
 td button {
   display: inline-block;
   margin-right: 4px;
   padding: 6px 8px;
   font-size: 10px;
-  background-color: rgb(242, 15, 15);
-  color: #ffffff;
+  background-color: #F04C23; /* vermelho intenso JSL */
+  color: #FFFFFF;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
 td button:hover {
-  background-color: #ff6b5e;
+  background-color: #FF866E; /* hover coral claro */
   transform: scale(1.1);
   transition: all 0.2s ease;
 }
@@ -262,13 +272,12 @@ td button:hover {
   min-height: 100vh;
 }
 
-
 .menu-lateral {
   width: 200px;
-  background-color: #1b103f;
+  background-color: #F4F4F4; /* fundo vermelho */
   padding: 30px 20px;
-  color: #fff;
-  border: 1px solid #2a2a2a;
+  color: #1B1B1B;
+  border: 1px solid #FFB3B3; /* borda clara */
   border-radius: 12px;
   font-weight: 200;
   flex-direction: column;
@@ -288,13 +297,11 @@ td button:hover {
   pointer-events: none;
 }
 
-/* Quando o menu está ativo */
 .menu-lateral.ativo {
   opacity: 1;
   transform: translateX(0);
   pointer-events: auto;
 }
-
 
 .menu-lateral h2 {
   margin-bottom: 30px;
@@ -314,7 +321,7 @@ td button:hover {
 }
 
 .menu-lateral ul li a {
-  color: #fff;
+  color: #1B1B1B;
   text-decoration: none;
   font-size: 12px;
   padding: 10px;
@@ -323,21 +330,24 @@ td button:hover {
 }
 
 .menu-lateral ul li a:hover {
-  background-color: #ff6b5e;
-  color: #000;
+  background-color: #FFFFFF;
+  color: #D5001C;
   border-radius: 4px;
   transition: 1s;
   font-weight: 150;
-  opacity: 0.2;
+  opacity: 0.7;
 }
 
 .conteudo-dashboard {
   flex: 1;
   padding: 40px;
-  background-color: rgba(31, 119, 137, 0.2);
-  color: #fff;
+  background-color: #F4F4F4;
+  color: #1B1B1B;
   margin-top: 40px;
+}
 
+.conteudo-dashboard h1 {
+  color: #D5001C;
 }
 
 .conteudo-dashboard h1,
@@ -365,8 +375,8 @@ p {
 }
 
 .export-buttons button {
-  background-color: #f39c12;
-  color: #ffffff;
+  background-color: #D5001C;
+  color: #FFFFFF;
   padding: 10px 15px;
   border: none;
   border-radius: 4px;
@@ -377,7 +387,7 @@ p {
 }
 
 .export-buttons button:hover {
-  background-color: #ff6b5e;
+  background-color: #FF866E;
   transform: scale(1.1);
   transition: all 0.2s ease;
 }
@@ -386,13 +396,16 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1b103f;
+  background-color: #D5001C;
   padding: 0px 3px;
   flex-wrap: wrap;
 }
 
+
+/* fim */ 
+
 .botao-voltar-menu {
-  background-color: #ff6600;
+  background-color: #D5001C;
   color: #ffffff;
   padding: 0;
   border: none;
@@ -439,7 +452,7 @@ p {
   flex-direction: row;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(213, 0, 28, 0.2);
   align-items: center;
   justify-content: center;
   flex: 1;
@@ -447,8 +460,8 @@ p {
   gap: 20px;
   height: auto;
   text-align: center;
-  color: #6b9ae1;
-  opacity: 0.3;
+  color: #D5001C;
+  opacity: 0.5;
 }
 
 .card-dashboard p {
@@ -457,15 +470,13 @@ p {
 
 .descricao-card {
   font-size: 18px;
-  color: #fff;
+  color: #1B1B1B;
 }
 
 .valor-card {
   font-size: 36px;
   font-weight: bold;
 }
-
-
 
 .botao {
   display: flex;
@@ -488,10 +499,10 @@ p {
   text-align: left;
   font-size: 14px;
   font-weight: bold;
-  color: #fff;
+  color: #1B1B1B;
   width: 100%;
   max-width: 400px;
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 .export-icons {
@@ -503,7 +514,7 @@ p {
 }
 
 .export-icons span:hover {
-  color: #ff6b5e;
+  color: #F04C23;
   transform: scale(1.1);
   transition: all 0.2s ease;
 }
@@ -544,50 +555,47 @@ p {
   margin-top: 150px;
 }
 
-
 /* === TABELAS === */
 table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #1e1e1e;
-  box-shadow: 0 2px 8px rgba(255, 165, 0, 0.2);
-  color: #ffffff;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(213, 0, 28, 0.15);
+  color: #1B1B1B;
 }
 
 table th,
 table td {
   padding: 12px;
-  border: 1px solid #444;
+  border: 1px solid #CCCCCC;
   text-align: center;
   text-transform: uppercase;
 }
 
 table th {
-  background-color: rgba(31, 119, 137, 0.2);
-  color: #000;
-  font-family: cursive;
+  background-color: #F7F7F7;
+  color: #D5001C;
+  font-family: 'Roboto', sans-serif;
 }
 
 table td {
   font-size: 10px;
 }
 
-
 table tr:nth-child(even) {
-  background-color: #2a2a2a;
+  background-color: #FAFAFA;
 }
 
 table tr:nth-child(odd) {
-  background-color: #3c3c3c;
-  opacity: 0.8;
+  background-color: #F0F0F0;
+  opacity: 0.9;
 }
 
 .barra-superior {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 3pxpx 30px;
-
+  padding: 3px 30px;
 }
 
 .usuarioLogadoTexto .icone-home {
@@ -596,7 +604,6 @@ table tr:nth-child(odd) {
   left: 0;
   top: 0;
 }
-
 
 .lado-direito {
   display: flex;
@@ -607,23 +614,20 @@ table tr:nth-child(odd) {
 .icone-home {
   font-size: 32px;
   text-decoration: none;
-  color: #f39c12;
+  color: #D5001C;
 }
 
-
 .rodape-sistema {
-  color: #f39c12;
+  color: #1B1B1B;
   padding: 20px;
   text-align: center;
   font-size: 14px;
   margin-top: 100px;
   height: auto;
-
-
 }
 
 .rodape-sistema a {
-  color: #00d5ff;
+  color: #007BFF;
   text-decoration: none;
   font-weight: bold;
 }
@@ -632,14 +636,12 @@ table tr:nth-child(odd) {
   text-decoration: underline;
 }
 
-
 .area-graficos {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   gap: 50px;
   margin: 30px auto;
-
 }
 
 #filtroData {
@@ -653,14 +655,18 @@ table tr:nth-child(odd) {
   width: 300px !important;
   height: 300px !important;
   opacity: 0.5;
-  background-color: #219c9c;
+  background-color: #EFEFEF;
+}
+
+.area_log h3 {
+  color: #D5001C;
 }
 
 .area_log {
   display: flex;
   height: auto;
   flex-direction: column;
-  color: #fff;
+  color: #1B1B1B;
   padding-left: 10px;
-  background-color: rgba(31, 119, 137, 0.2);
+  background-color: #F9F9F9;
 }

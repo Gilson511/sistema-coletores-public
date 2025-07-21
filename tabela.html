@@ -1,127 +1,127 @@
-  <!DOCTYPE html>
-  <html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-br">
 
-  <head>
-    <meta charset="UTF-8">
-    <title>Lista de Coletores</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="images/clipboard_1195513.png" type="image/x-icon" />
-    <link rel="stylesheet" href="css/estilo.css">
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Coletores</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="images/clipboard_1195513.png" type="image/x-icon" />
+  <link rel="stylesheet" href="css/estilo.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
 
-  <body>
-    <div class="pai">
+<body>
+  <div class="pai">
 
-      <div class="usuario-logado">
-        <p id="usuarioLogadoTexto"></p>
-        <button onclick="logout()">Sair</button>
-            <a href="dashboard.html" class="icone-home" title="Voltar ao menu">🏠</a>
-
-      </div>
+    <div class="usuario-logado">
+      <p id="usuarioLogadoTexto"></p>
+      <button onclick="logout()">Sair</button>
+      <a href="dashboard.html" class="icone-home" title="Voltar ao menu">
+        <span class="material-icons" style="font-size: 35px; color: #D5001C; padding-top: 5px;">home</span>
+      </a>
     </div>
-    <hr style="border: 0.5;opacity: 0.3;">
 
-    <div class="container">
-      <h2>Dados Cadastrados dos Coletores</h2>
+  </div>
+  <hr style="border: 0.5;opacity: 0.3;">
 
-      <div class="status-log"></div>
-      <table id="tabelaColetores">
-        <thead>
-          <tr>
-            <th><span>RE</span></th>
-            <th><span>Nome</span></th>
-            <th><span>Nº Coletor</span></th>
-            <th><span>Encarregado</span></th>
-            <th><span>Turno</span></th>
-            <th><span>Setor</span></th>
-            <th><span>Pegou Coletor</span></th>
-            <th><span>Deu Baixa</span></th>
-            <th><span>Observações</span></th>
-            <th style="width: 250px;"><span>Ações</span></th>
+  <div class="container">
+    <h2>Dados Cadastrados dos Coletores</h2>
 
-          </tr>
-          <tr>
-            <th><input type="text" placeholder="Filtrar RE" onkeyup="filtrarTabela(0, this.value)" /></th>
-            <th><input type="text" placeholder="Filtrar Nome" onkeyup="filtrarTabela(1, this.value)" /></th>
-            <th><input type="text" placeholder="Filtrar Nº Coletor" onkeyup="filtrarTabela(2, this.value)" /></th>
-            <th><input type="text" placeholder="Filtrar Encarregado" onkeyup="filtrarTabela(3, this.value)" /></th>
-            <th><input type="text" placeholder="Filtrar Turno" onkeyup="filtrarTabela(4, this.value)" /></th>
-            <th><input type="text" placeholder="Filtrar Setor" onkeyup="filtrarTabela(5, this.value)" /></th>
-            <th><input type="text" placeholder="Filtrar retirada" onkeyup="filtrarTabela(6, this.value)" /></th>
-            <th><input type="text" placeholder="Filtrar baixa" onkeyup="filtrarTabela(7, this.value)" /></th>
-            <th><input type="text" placeholder="Filtrar Obs" onkeyup="filtrarTabela(8, this.value)" /></th>
-            <th>❌</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- As linhas da tabela são carregadas dinamicamente -->
-        </tbody>
-      </table>
-      <div style="text-align: right; margin-top: 10px;">
-        <button onclick="limparFiltros()">Limpar Filtros</button>
-      </div>
+    <div class="status-log"></div>
+    <table id="tabelaColetores">
+      <thead>
+        <tr>
+          <th><span>RE</span></th>
+          <th><span>Nome</span></th>
+          <th><span>Nº Coletor</span></th>
+          <th><span>Encarregado</span></th>
+          <th><span>Turno</span></th>
+          <th><span>Setor</span></th>
+          <th><span>Pegou Coletor</span></th>
+          <th><span>Deu Baixa</span></th>
+          <th><span>Observações</span></th>
+          <th style="width: 250px;"><span>Ações</span></th>
 
-      <div class="log"></div>
-      <div class="export-buttons">
-        <div class="export-box">
-          <p>📁 Relatórios disponíveis para download:</p>
-          <div class="export-icons">
-            <span title="Exportar para Excel" onclick="exportarExcel()">📊</span>
-          </div>
+        </tr>
+        <tr>
+          <th><input type="text" placeholder="Filtrar RE" onkeyup="filtrarTabela(0, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar Nome" onkeyup="filtrarTabela(1, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar Nº Coletor" onkeyup="filtrarTabela(2, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar Encarregado" onkeyup="filtrarTabela(3, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar Turno" onkeyup="filtrarTabela(4, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar Setor" onkeyup="filtrarTabela(5, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar retirada" onkeyup="filtrarTabela(6, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar baixa" onkeyup="filtrarTabela(7, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar Obs" onkeyup="filtrarTabela(8, this.value)" /></th>
+          <th><button onclick="limparFiltros()">Limpar Filtros</button></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- As linhas da tabela são carregadas dinamicamente -->
+      </tbody>
+    </table>
+
+    <div class="log"></div>
+    <div class="export-buttons">
+      <div class="export-box">
+        <p>📁 Relatórios disponíveis para download:</p>
+        <div class="export-icons">
+          <span title="Exportar para Excel" onclick="exportarExcel()">📊</span>
         </div>
       </div>
     </div>
+  </div>
 
-    <script src="libs/xlsx.full.min.js"></script>
-    <script src="libs/html2pdf.bundle.min.js"></script>
+  <script src="libs/xlsx.full.min.js"></script>
+  <script src="libs/html2pdf.bundle.min.js"></script>
 
-    <script>
-      const baseURL = "https://sistema-coletores-backend-4.onrender.com/api/coletores";
+  <script>
+    const baseURL = "https://sistema-coletores-backend-4.onrender.com/api/coletores";
 
-      window.onload = function () {
-        const usuario = localStorage.getItem("usuarioLogado");
-        if (!usuario) {
-          alert("Você precisa estar logado para acessar esta página.");
-          window.location.href = "index.html";
-        } else {
-          document.getElementById("usuarioLogadoTexto").textContent = `Usuário logado: ${usuario}`;
-          carregarColetores();
-        }
-      };
-
-      function logout() {
-        localStorage.removeItem("usuarioLogado");
-        localStorage.removeItem("token");
+    window.onload = function () {
+      const usuario = localStorage.getItem("usuarioLogado");
+      if (!usuario) {
+        alert("Você precisa estar logado para acessar esta página.");
         window.location.href = "index.html";
+      } else {
+        document.getElementById("usuarioLogadoTexto").textContent = `Usuário logado: ${usuario}`;
+        carregarColetores();
       }
+    };
 
-      async function carregarColetores() {
-        try {
-          const [coletoresRes, colaboradoresRes] = await Promise.all([
-            fetch(baseURL),
-            fetch("https://sistema-coletores-backend-4.onrender.com/api/colaboradores")
-          ]);
+    function logout() {
+      localStorage.removeItem("usuarioLogado");
+      localStorage.removeItem("token");
+      window.location.href = "index.html";
+    }
 
-          const coletores = await coletoresRes.json();
-          const colaboradores = await colaboradoresRes.json();
+    async function carregarColetores() {
+      try {
+        const [coletoresRes, colaboradoresRes] = await Promise.all([
+          fetch(baseURL),
+          fetch("https://sistema-coletores-backend-4.onrender.com/api/colaboradores")
+        ]);
 
-          const mapaColaboradores = {};
-          colaboradores.forEach(c => {
-            mapaColaboradores[c.matricula] = c.nome_completo;
-          });
+        const coletores = await coletoresRes.json();
+        const colaboradores = await colaboradoresRes.json();
 
-          const tabela = document.getElementById("tabelaColetores").getElementsByTagName("tbody")[0];
-          tabela.innerHTML = "";
+        const mapaColaboradores = {};
+        colaboradores.forEach(c => {
+          mapaColaboradores[c.matricula] = c.nome_completo;
+        });
 
-          if (coletores.length === 0) {
-            tabela.innerHTML = "<tr><td colspan='10'>Nenhum coletor cadastrado</td></tr>";
-            return;
-          }
+        const tabela = document.getElementById("tabelaColetores").getElementsByTagName("tbody")[0];
+        tabela.innerHTML = "";
 
-          coletores.forEach(coletor => {
-            const nome = mapaColaboradores[coletor.re] || "Não encontrado";
-            const row = tabela.insertRow();
-            row.innerHTML = `
+        if (coletores.length === 0) {
+          tabela.innerHTML = "<tr><td colspan='10'>Nenhum coletor cadastrado</td></tr>";
+          return;
+        }
+
+        coletores.forEach(coletor => {
+          const nome = mapaColaboradores[coletor.re] || "Não encontrado";
+          const row = tabela.insertRow();
+          row.innerHTML = `
               <td><input value="${coletor.re}" disabled /></td>
               <td><input value="${nome}" disabled /></td>
               <td><input value="${coletor.numero_coletor}" disabled /></td>
@@ -137,175 +137,175 @@
                 <button onclick="excluirColetor(${coletor.id})">Excluir</button>
               </td>
             `;
-          });
-        } catch (err) {
-          console.error("Erro ao carregar dados:", err);
-          alert("Erro ao carregar dados.");
-        }
+        });
+      } catch (err) {
+        console.error("Erro ao carregar dados:", err);
+        alert("Erro ao carregar dados.");
+      }
+    }
+
+    function editarColetor(btn, id) {
+      const inputs = btn.closest("tr").querySelectorAll("input");
+      inputs.forEach(input => input.disabled = false);
+      btn.nextElementSibling.disabled = false;
+    }
+
+    async function validarNumeroNaBase(numero) {
+      try {
+        const resposta = await fetch("https://sistema-coletores-backend-4.onrender.com/api/coletores");
+        const base = await resposta.json();
+        return base.some(c => c.numero_coletor === numero);
+      } catch (err) {
+        console.error("Erro ao validar número na base:", err);
+        return false;
+      }
+    }
+
+    async function salvarColetor(btn, id) {
+      const inputs = btn.closest("tr").querySelectorAll("input");
+      const [re, nome, numero_coletor, encarregado, turno, setor, hora_pegou, hora_baixa, estado] =
+        Array.from(inputs).map(i => i.value.trim());
+
+      const existeNaBase = await validarNumeroNaBase(numero_coletor);
+      if (!existeNaBase) {
+        const log = document.querySelector('.log');
+        log.style.color = 'red';
+        log.style.fontSize = '12px';
+        log.innerHTML = `⚠️ O número informado: ${numero_coletor} não existe na base de coletores. Por favor, digite um número válido.`;
+        inputs[2].focus();
+        return;
       }
 
-      function editarColetor(btn, id) {
-        const inputs = btn.closest("tr").querySelectorAll("input");
-        inputs.forEach(input => input.disabled = false);
-        btn.nextElementSibling.disabled = false;
-      }
+      const coletorAtualizado = {
+        re,
+        numero_coletor,
+        encarregado,
+        turno,
+        setor,
+        hora_pegou,
+        hora_baixa,
+        estado
+      };
 
-      async function validarNumeroNaBase(numero) {
-        try {
-          const resposta = await fetch("https://sistema-coletores-backend-4.onrender.com/api/coletores");
-          const base = await resposta.json();
-          return base.some(c => c.numero_coletor === numero);
-        } catch (err) {
-          console.error("Erro ao validar número na base:", err);
-          return false;
-        }
-      }
-
-      async function salvarColetor(btn, id) {
-        const inputs = btn.closest("tr").querySelectorAll("input");
-        const [re, nome, numero_coletor, encarregado, turno, setor, hora_pegou, hora_baixa, estado] =
-          Array.from(inputs).map(i => i.value.trim());
-
-        const existeNaBase = await validarNumeroNaBase(numero_coletor);
-        if (!existeNaBase) {
+      fetch(`${baseURL}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(coletorAtualizado)
+      })
+        .then(res => res.json())
+        .then(data => {
           const log = document.querySelector('.log');
-          log.style.color = 'red';
+          log.style.color = 'green';
           log.style.fontSize = '12px';
-          log.innerHTML = `⚠️ O número informado: ${numero_coletor} não existe na base de coletores. Por favor, digite um número válido.`;
-          inputs[2].focus();
-          return;
-        }
+          log.innerHTML = `✅ O número informado: ${numero_coletor} foi atualizado com sucesso.`;
 
-        const coletorAtualizado = {
-          re,
-          numero_coletor,
-          encarregado,
-          turno,
-          setor,
-          hora_pegou,
-          hora_baixa,
-          estado
-        };
+          setTimeout(() => {
+            log.innerHTML = '';
+          }, 2000);
 
-        fetch(`${baseURL}/${id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(coletorAtualizado)
+          carregarColetores();
         })
-          .then(res => res.json())
-          .then(data => {
-            const log = document.querySelector('.log');
-            log.style.color = 'green';
-            log.style.fontSize = '12px';
-            log.innerHTML = `✅ O número informado: ${numero_coletor} foi atualizado com sucesso.`;
+        .catch(err => {
+          console.error("Erro ao atualizar coletor:", err);
+          alert("Erro ao atualizar coletor.");
+        });
+    }
 
-            setTimeout(() => {
-              log.innerHTML = '';
-            }, 2000);
+    function excluirColetor(id) {
+      if (!confirm("Deseja realmente excluir este coletor?")) return;
 
+      fetch(`${baseURL}/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(async res => {
+          const texto = await res.text();
+          try {
+            const json = JSON.parse(texto);
+            alert("Coletor excluído com sucesso!");
             carregarColetores();
-          })
-          .catch(err => {
-            console.error("Erro ao atualizar coletor:", err);
-            alert("Erro ao atualizar coletor.");
-          });
-      }
-
-      function excluirColetor(id) {
-        if (!confirm("Deseja realmente excluir este coletor?")) return;
-
-        fetch(`${baseURL}/${id}`, {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" }
+          } catch (err) {
+            console.error("Erro: resposta não é JSON. Conteúdo:", texto);
+            alert("Erro: resposta do servidor não é válida.");
+          }
         })
-          .then(async res => {
-            const texto = await res.text();
-            try {
-              const json = JSON.parse(texto);
-              alert("Coletor excluído com sucesso!");
-              carregarColetores();
-            } catch (err) {
-              console.error("Erro: resposta não é JSON. Conteúdo:", texto);
-              alert("Erro: resposta do servidor não é válida.");
-            }
-          })
-          .catch(err => {
-            console.error("Erro ao excluir coletor:", err);
-            alert("Erro ao excluir coletor.");
-          });
-      }
-
-      function exportarExcel() {
-        const tabelaOriginal = document.getElementById("tabelaColetores");
-
-        // Clona a tabela
-        const tabelaClone = tabelaOriginal.cloneNode(true);
-
-        // Substitui todos os <input> pelo texto que eles contêm
-        tabelaClone.querySelectorAll("input").forEach(input => {
-          const span = document.createElement("span");
-          span.textContent = input.value;
-          input.parentNode.replaceChild(span, input);
+        .catch(err => {
+          console.error("Erro ao excluir coletor:", err);
+          alert("Erro ao excluir coletor.");
         });
+    }
 
-        // Remove a segunda linha do <thead> (linha de filtros)
-        const thead = tabelaClone.querySelector("thead");
-        if (thead && thead.rows.length > 1) {
-          thead.deleteRow(1); // remove a linha de filtros (segunda linha do cabeçalho)
-        }
+    function exportarExcel() {
+      const tabelaOriginal = document.getElementById("tabelaColetores");
 
-        // Remove última célula de cada linha (botões)
-        tabelaClone.querySelectorAll("tr").forEach(tr => {
-          const ultimaCelula = tr.lastElementChild;
-          if (ultimaCelula) ultimaCelula.remove();
-        });
+      // Clona a tabela
+      const tabelaClone = tabelaOriginal.cloneNode(true);
 
+      // Substitui todos os <input> pelo texto que eles contêm
+      tabelaClone.querySelectorAll("input").forEach(input => {
+        const span = document.createElement("span");
+        span.textContent = input.value;
+        input.parentNode.replaceChild(span, input);
+      });
 
-        const wb = XLSX.utils.book_new();
-        const ws = XLSX.utils.table_to_sheet(tabelaClone);
-        XLSX.utils.book_append_sheet(wb, ws, "Coletores");
-        XLSX.writeFile(wb, "coletores.xlsx");
+      // Remove a segunda linha do <thead> (linha de filtros)
+      const thead = tabelaClone.querySelector("thead");
+      if (thead && thead.rows.length > 1) {
+        thead.deleteRow(1); // remove a linha de filtros (segunda linha do cabeçalho)
       }
 
+      // Remove última célula de cada linha (botões)
+      tabelaClone.querySelectorAll("tr").forEach(tr => {
+        const ultimaCelula = tr.lastElementChild;
+        if (ultimaCelula) ultimaCelula.remove();
+      });
 
-    </script>
 
-    <script>
-      function filtrarTabela(colunaIndex, valor) {
-        const tabela = document.getElementById("tabelaColetores");
-        const linhas = tabela.querySelector("tbody").rows;
-        const filtro = valor.toLowerCase();
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.table_to_sheet(tabelaClone);
+      XLSX.utils.book_append_sheet(wb, ws, "Coletores");
+      XLSX.writeFile(wb, "coletores.xlsx");
+    }
 
-        for (let i = 0; i < linhas.length; i++) {
-          const celula = linhas[i].cells[colunaIndex];
-          const conteudo = celula?.querySelector("input")?.value.toLowerCase() || "";
-          linhas[i].style.display = conteudo.includes(filtro) ? "" : "none";
-        }
+
+  </script>
+
+  <script>
+    function filtrarTabela(colunaIndex, valor) {
+      const tabela = document.getElementById("tabelaColetores");
+      const linhas = tabela.querySelector("tbody").rows;
+      const filtro = valor.toLowerCase();
+
+      for (let i = 0; i < linhas.length; i++) {
+        const celula = linhas[i].cells[colunaIndex];
+        const conteudo = celula?.querySelector("input")?.value.toLowerCase() || "";
+        linhas[i].style.display = conteudo.includes(filtro) ? "" : "none";
       }
+    }
 
-      function limparFiltros() {
-        const filtros = document.querySelectorAll("#tabelaColetores thead input");
-        filtros.forEach(input => input.value = "");
+    function limparFiltros() {
+      const filtros = document.querySelectorAll("#tabelaColetores thead input");
+      filtros.forEach(input => input.value = "");
 
-        const linhas = document.querySelectorAll("#tabelaColetores tbody tr");
-        linhas.forEach(linha => linha.style.display = "");
-      }
+      const linhas = document.querySelectorAll("#tabelaColetores tbody tr");
+      linhas.forEach(linha => linha.style.display = "");
+    }
 
 
-      fetch("https://sistema-coletores-backend-4.onrender.com/api/coletores/teste-delete")
-        .then(res => res.text())
-        .then(console.log)
-        .catch(console.error);
-    </script>
+    fetch("https://sistema-coletores-backend-4.onrender.com/api/coletores/teste-delete")
+      .then(res => res.text())
+      .then(console.log)
+      .catch(console.error);
+  </script>
 
-    <footer class="rodape-sistema">
-      <div class="rodape-conteudo">
-        <p>© 2025 Sistema de Coletores | Suporte:
-          <a href="mailto:gilson.araujo@jsl.com.br" target="_blank">gilson.araujo@jsl.com.br</a>
-        </p>
-        <p>Telefone para contato: <a href="tel:+550000000000">(35) 9974-48246</a></p>
-      </div>
-    </footer>
-  </body>
+  <footer class="rodape-sistema">
+    <div class="rodape-conteudo">
+      <p>© 2025 Sistema de Coletores | Suporte:
+        <a href="mailto:gilson.araujo@jsl.com.br" target="_blank">gilson.araujo@jsl.com.br</a>
+      </p>
+      <p>Telefone para contato: <a href="tel:+550000000000">(35) 9974-48246</a></p>
+    </div>
+  </footer>
+</body>
 
-  </html>
+</html>

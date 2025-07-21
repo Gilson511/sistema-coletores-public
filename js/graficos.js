@@ -21,85 +21,59 @@ function agruparPorData(lista, campoData, dias = "todos") {
   }, {});
 }
 
-
 function gerarGrafico(canvasId, tipo, labels, dados, titulo, cores = null) {
   const ctx = document.getElementById(canvasId).getContext("2d");
 
-  // Destrói gráfico anterior se existir
   if (window[canvasId] instanceof Chart) {
     window[canvasId].destroy();
   }
 
   const paleta = cores || [
-    "#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14F", "#EDC948", "#B07AA1", "#FF9DA7"
+    "#D5001C", "#F5F5F5", "#B00017", "#EDC948", "#59A14F", "#E15759", "#FF9DA7"
   ];
 
   window[canvasId] = new Chart(ctx, {
-    type: "bar",
+    type: tipo,
     data: {
       labels: labels,
       datasets: [{
         label: titulo,
         data: dados,
         backgroundColor: paleta,
-        borderRadius: 10, // cantos arredondados
-        borderSkipped: false, // remove cortes nas barras
-        barThickness: 40
+        borderColor: "#ffffff",
+        borderWidth: 1
       }]
     },
     options: {
       responsive: true,
       plugins: {
         legend: {
-          display: false // remove legenda repetitiva
+          labels: {
+            color: "#000"
+          }
         },
         title: {
           display: true,
           text: titulo,
-          color: "#ffffff",
+          color: "#D5001C",
           font: {
             size: 18,
             weight: "bold",
-            family: "'Segoe UI', sans-serif"
+            family: "'Roboto', sans-serif"
           },
           padding: { top: 10, bottom: 20 }
         },
         tooltip: {
           backgroundColor: "#333",
           titleFont: { weight: 'bold' },
-          bodyFont: { family: "'Segoe UI', sans-serif" },
+          bodyFont: { family: "'Roboto', sans-serif" },
           borderColor: "#888",
           borderWidth: 1
-        }
-      },
-      scales: {
-        x: {
-          ticks: {
-            color: "#ffffff",
-            font: { size: 12 }
-          },
-          grid: {
-            color: "rgba(255,255,255,0.1)"
-          }
-        },
-        y: {
-          ticks: {
-            color: "#ffffff",
-            font: { size: 12 }
-          },
-          grid: {
-            color: "rgba(255,255,255,0.1)"
-          },
-          beginAtZero: true
         }
       }
     }
   });
 }
-
-
-
-
 
 async function gerarGraficosFiltrados() {
   const filtroDias = document.getElementById("filtroData").value;
@@ -109,13 +83,14 @@ async function gerarGraficosFiltrados() {
   const totalUso = uso.length;
   const totalArmazem = base.length - totalUso;
 
-  gerarGrafico("graficoStatus", "doughnut", ["Em uso", "Armazenado"], [totalUso, totalArmazem], "Status dos Coletores");
+  // Muda de "doughnut" para "pie"
+  gerarGrafico("graficoStatus", "pie", ["Em uso", "Armazenado"], [totalUso, totalArmazem], "Status dos Coletores");
 
   const retiradas = agruparPorData(uso, "hora_pegou", dias);
-  gerarGrafico("graficoLinhaData", "line", Object.keys(retiradas), Object.values(retiradas), "Retiradas por Data");
+  gerarGrafico("graficoLinhaData", "pie", Object.keys(retiradas), Object.values(retiradas), "Retiradas por Data");
 
   const devolucoes = agruparPorData(uso, "hora_baixa", dias);
-  gerarGrafico("graficoBaixas", "bar", Object.keys(devolucoes), Object.values(devolucoes), "Devoluções por Data");
+  gerarGrafico("graficoBaixas", "pie", Object.keys(devolucoes), Object.values(devolucoes), "Devoluções por Data");
 }
 
 window.addEventListener("DOMContentLoaded", gerarGraficosFiltrados);
