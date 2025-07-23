@@ -21,18 +21,13 @@ function agruparPorData(lista, campoData, dias = "todos") {
   }, {});
 }
 
-function gerarGrafico(canvasId, tipo, labels, dados, titulo, cores = null) {
-  const ctx = document.getElementById(canvasId).getContext("2d");
+function gerarGrafico(id, tipo, labels, dados, titulo, cores = null) {
+  const ctx = document.getElementById(id).getContext("2d");
 
-  if (window[canvasId] instanceof Chart) {
-    window[canvasId].destroy();
-  }
+  // Definindo as cores: vermelho (#D5001C) e laranja (#FF8C00)
+  const paleta = cores || ["#D5001C", "#ff8c00da"];
 
-  const paleta = cores || [
-    "#D5001C", "#F5F5F5", "#B00017", "#EDC948", "#59A14F", "#E15759", "#FF9DA7"
-  ];
-
-  window[canvasId] = new Chart(ctx, {
+  new Chart(ctx, {
     type: tipo,
     data: {
       labels: labels,
@@ -41,39 +36,36 @@ function gerarGrafico(canvasId, tipo, labels, dados, titulo, cores = null) {
         data: dados,
         backgroundColor: paleta,
         borderColor: "#ffffff",
-        borderWidth: 1
-      }]
+        borderWidth: 1,
+      }],
     },
     options: {
       responsive: true,
       plugins: {
         legend: {
+          position: "bottom",
           labels: {
-            color: "#000"
-          }
+            color: "#333",
+            font: {
+              size: 14,
+              weight: "bold",
+            },
+          },
         },
         title: {
           display: true,
           text: titulo,
-          color: "#D5001C",
+          color: "#000",
           font: {
-            size: 18,
+            size: 16,
             weight: "bold",
-            family: "'Roboto', sans-serif"
           },
-          padding: { top: 10, bottom: 20 }
         },
-        tooltip: {
-          backgroundColor: "#333",
-          titleFont: { weight: 'bold' },
-          bodyFont: { family: "'Roboto', sans-serif" },
-          borderColor: "#888",
-          borderWidth: 1
-        }
-      }
-    }
+      },
+    },
   });
 }
+
 
 async function gerarGraficosFiltrados() {
   const filtroDias = document.getElementById("filtroData").value;

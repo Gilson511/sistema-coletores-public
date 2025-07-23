@@ -25,7 +25,7 @@
   <hr style="border: 0.5;opacity: 0.3;">
 
   <div class="container">
-    <h2>Dados Cadastrados dos Coletores</h2>
+    <h2>Coletores retirados</h2>
 
     <div class="status-log"></div>
     <table id="tabelaColetores">
@@ -37,8 +37,8 @@
           <th><span>Encarregado</span></th>
           <th><span>Turno</span></th>
           <th><span>Setor</span></th>
-          <th><span>Pegou Coletor</span></th>
-          <th><span>Deu Baixa</span></th>
+          <th style="width: 150px;"><span>Pegou Coletor</span></th>
+          <th style="width: 150px;"><span>Deu Baixa</span></th>
           <th><span>Observações</span></th>
           <th style="width: 250px;"><span>Ações</span></th>
 
@@ -134,7 +134,7 @@
               <td>
                 <button onclick="editarColetor(this, ${coletor.id})">Editar</button>
                 <button onclick="salvarColetor(this, ${coletor.id})" disabled>Salvar</button>
-                <button onclick="excluirColetor(${coletor.id})">Excluir</button>
+                <button onclick="excluirColetor(${coletor.id})">Devolver</button>
               </td>
             `;
         });

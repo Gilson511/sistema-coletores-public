@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Escolher Ação - Movimentações</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="images/clipboard_1195513.png" type="image/x-icon" />
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f4f4f4;
+        }
+
+        .escolha-mov {
+            background-color: white;
+            padding: 40px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .escolha-mov h2 {
+            margin-bottom: 20px;
+        }
+
+        .botao-escolha {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            font-size: 16px;
+            background-color: #B00017;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .botao-escolha:hover {
+            background-color: #8c0012;
+        }
+
+        .voltar {
+            margin-top: 20px;
+            display: block;
+            color: #333;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="usuario-logado">
+        <p id="usuarioLogadoTexto"></p>
+        <button onclick="logout()" style="margin-left: 20px;">Sair</button>
+
+        <a href="dashboard.html" class="material-icons" title="Voltar ao menu"
+        style="font-size: 35px;margin-top: 7.5px; color: #D5001C; text-decoration: none;">home</a>
+
+    </header>
+    <div class="escolha-mov">
+        <h2>O que você deseja fazer?</h2>
+        <button class="botao-escolha" onclick="location.href='cadastro.html'">Cadastrar</button>
+        <button class="botao-escolha" onclick="location.href='tabela.html'">Devolução</button>
+        <a href="dashboard.html" class="voltar">← Voltar ao menu</a>
+    </div>
+</body>
+
+</html>

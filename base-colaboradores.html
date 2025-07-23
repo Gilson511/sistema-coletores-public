@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <title>Base de Colaboradores</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  <link rel="icon" href="images/clipboard_1195513.png" type="image/x-icon"/>
+  <link rel="icon" href="images/clipboard_1195513.png" type="image/x-icon" />
   <link rel="stylesheet" href="css/estilo.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
 </head>
+
 <body>
 
   <div class="barra-superior">
@@ -15,7 +19,8 @@
     <div class="lado-direito usuario-logado">
       <span id="usuarioLogadoTexto"></span>
       <button onclick="logout()">Sair</button>
-      <a href="dashboard.html" class="material-icons" title="Voltar ao menu" style="font-size: 35px;padding-top: 10px; color: #D5001C; text-decoration: none;">home</a>
+      <a href="dashboard.html" class="material-icons" title="Voltar ao menu"
+        style="font-size: 35px;padding-top: 10px; color: #D5001C; text-decoration: none;">home</a>
     </div>
   </div>
   <hr style="border: 0.5; opacity: 0.3;">
@@ -62,6 +67,13 @@
       <button type="submit">Cadastrar</button>
     </form>
 
+    <div class="form-group">
+      <label for="excelFile">Importar de Arquivo Excel:</label>
+      <input type="file" id="excelFile" accept=".xlsx, .xls" />
+      <button type="button" onclick="importarExcel()">Importar Excel</button>
+    </div>
+
+
     <div id="mensagem" class="mensagem-alerta" style="display: none;"></div>
 
     <table>
@@ -80,20 +92,71 @@
   </div>
 
   <script>
+
+    function importarExcel() {
+      const fileInput = document.getElementById("excelFile");
+      const file = fileInput.files[0];
+
+      if (!file) {
+        exibirMensagem("Selecione um arquivo Excel válido.", "error");
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: "array" });
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        const colaboradores = XLSX.utils.sheet_to_json(sheet);
+
+        // Validação de colunas obrigatórias
+        const camposObrigatorios = ["matricula", "nome_completo", "turno", "setor", "encarregado"];
+        const camposInvalidos = colaboradores.some(colab =>
+          camposObrigatorios.some(campo => !colab[campo])
+        );
+
+        if (camposInvalidos) {
+          exibirMensagem("Alguma linha do Excel está com campos faltando.", "error");
+          return;
+        }
+
+        // Enviar para o backend um por um
+        colaboradores.forEach(async (colab) => {
+          try {
+            const res = await fetch(baseURL, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(colab),
+            });
+
+            if (!res.ok) throw new Error();
+          } catch (err) {
+            console.error("Erro ao importar:", colab, err);
+          }
+        });
+
+        exibirMensagem("Importação concluída!", "success");
+        setTimeout(carregarColaboradores, 1000); // Atualiza a tabela depois de 1s
+      };
+
+      reader.readAsArrayBuffer(file);
+    }
+
     const baseURL = "https://sistema-coletores-backend-4.onrender.com/api/colaboradores";
     const form = document.getElementById("formColaborador");
     const mensagem = document.getElementById("mensagem");
     const tabela = document.getElementById("tabela-colaboradores");
-  
+
     let editandoMatricula = null; // controle de edição
-  
+
     function exibirMensagem(texto, tipo) {
       mensagem.textContent = texto;
       mensagem.className = `mensagem-alerta ${tipo}`;
       mensagem.style.display = "block";
       setTimeout(() => mensagem.style.display = "none", 3000);
     }
-  
+
     function carregarColaboradores() {
       fetch(baseURL)
         .then(res => res.json())
@@ -117,10 +180,10 @@
           });
         });
     }
-  
+
     async function excluirColaborador(matricula) {
       if (!confirm("Tem certeza que deseja excluir este colaborador?")) return;
-  
+
       try {
         const res = await fetch(`${baseURL}/${matricula}`, { method: "DELETE" });
         if (!res.ok) throw new Error();
@@ -130,7 +193,7 @@
         exibirMensagem("Erro ao excluir colaborador.", "error");
       }
     }
-    
+
 
     function confirmarAtualizacao(matricula) {
       document.querySelector("form").dispatchEvent(new Event("submit")); // força o envio do formulário
@@ -151,13 +214,13 @@
           document.querySelectorAll("button[id^='atualizar-']").forEach(btn => btn.disabled = true);
           const btnAtualizar = document.getElementById(`atualizar-${matricula}`);
           if (btnAtualizar) btnAtualizar.disabled = false;
-      });
+        });
     }
 
-  
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-  
+
       const dados = {
         matricula: document.getElementById("matricula").value.trim(),
         nome_completo: document.getElementById("nome_completo").value.trim(),
@@ -165,24 +228,24 @@
         setor: document.getElementById("setor").value,
         encarregado: document.getElementById("encarregado").value
       };
-  
+
       if (!dados.matricula || !dados.nome_completo || !dados.turno || !dados.setor || !dados.encarregado) {
         exibirMensagem("Preencha todos os campos.", "error");
         return;
       }
-  
+
       try {
         const metodo = editandoMatricula ? "PUT" : "POST";
         const url = editandoMatricula ? `${baseURL}/${editandoMatricula}` : baseURL;
-  
+
         const res = await fetch(url, {
           method: metodo,
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(dados)
         });
-  
+
         if (!res.ok) throw new Error();
-  
+
         exibirMensagem(editandoMatricula ? "Colaborador atualizado!" : "Colaborador cadastrado!", "success");
         form.reset();
         editandoMatricula = null;
@@ -192,7 +255,7 @@
         exibirMensagem("Erro ao salvar colaborador.", "error");
       }
     });
-  
+
     window.onload = () => {
       carregarColaboradores();
       const usuario = localStorage.getItem("usuarioLogado");
@@ -200,7 +263,7 @@
         document.getElementById("usuarioLogadoTexto").textContent = `Usuário: ${usuario}`;
       }
     };
-  
+
     function logout() {
       localStorage.removeItem("usuarioLogado");
       localStorage.removeItem("token");
@@ -208,16 +271,17 @@
     }
   </script>
 
-<footer class="rodape-sistema">
-  <div class="rodape-conteudo">
-    <p>© 2025 Sistema de Coletores | Suporte: 
-      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=gilson.araujo@jsl.com.br.com&su=Suporte%20-%20Sistema%20de%20Coletores&body=Olá,%20gostaria%20de%20tirar%20uma%20dúvida%20ou%20fazer%20uma%20sugestão."
-         target="_blank">
-         gilson.araujo@jsl.com.br
-      </a>
-    </p>
-    <p>Telefone para contato: <a href="tel:+550000000000">(35) 9974-48246</a></p>
-  </div>
-</footer>
+  <footer class="rodape-sistema">
+    <div class="rodape-conteudo">
+      <p>© 2025 Sistema de Coletores | Suporte:
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=gilson.araujo@jsl.com.br.com&su=Suporte%20-%20Sistema%20de%20Coletores&body=Olá,%20gostaria%20de%20tirar%20uma%20dúvida%20ou%20fazer%20uma%20sugestão."
+          target="_blank">
+          gilson.araujo@jsl.com.br
+        </a>
+      </p>
+      <p>Telefone para contato: <a href="tel:+550000000000">(35) 9974-48246</a></p>
+    </div>
+  </footer>
 </body>
+
 </html>

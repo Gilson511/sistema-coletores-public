@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <title>Cadastro de Coletor</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  <link rel="icon" href="images/clipboard_1195513.png" type="image/x-icon"/>
+  <link rel="icon" href="images/clipboard_1195513.png" type="image/x-icon" />
   <link rel="stylesheet" href="css/estilo.css">
-
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
 <body>
   <div class="usuario-logado">
     <p id="usuarioLogadoTexto"></p>
     <button onclick="logout()">Sair</button>
   </div>
+
+  <a href="dashboard.html" class="material-icons" title="Voltar ao menu"
+    style="font-size: 35px; color: #D5001C; text-decoration: none;padding-left: 5px;position: fixed;">home</a>
+
   <hr style="border: 0.5; opacity: 0.3;">
 
   <div class="container">
-    <h2>Cadastro de Coletor</h2>
+    <h2><title>Sistema de Coletores - Cadastro</title></h2>
     <div id="mensagem" class="mensagem-alerta hidden"></div>
 
     <form id="formColetor" class="form">
@@ -61,28 +67,48 @@
       </div>
 
       <div class="form-group">
-        <label for="hora_pegou">Data e Hora que Pegou</label>
-        <input type="datetime-local" id="hora_pegou" required>
+        <label for="hora_pegou">Data e Hora que fez retirada</label>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <input type="datetime-local" id="hora_pegou" required>
+          <span onclick="inserirDataHoraAtual('hora_pegou')" title="Inserir data e hora atual" style="cursor: pointer;"
+            class="material-icons">schedule</span>
+        </div>
       </div>
+
 
       <div class="form-group">
-        <label for="hora_baixa">Data e Hora que Deu Baixa</label>
-        <input type="datetime-local" id="hora_baixa">
-      </div>
+      
 
-      <div class="form-group">
-        <label for="estado">Observações sobre o coletor</label>
-        <input type="text" id="estado">
-      </div>
+        <div class="form-group">
+          <label for="estado">Observações sobre o coletor</label>
+          <input type="text" id="estado">
+        </div>
 
-      <div class="botao">
-        <div><button type="submit">Salvar Coletor</button></div>
-        <div><a href="dashboard.html" class="btn-voltar">Voltar ao Menu</a></div>
-      </div>
+        <div class="botao">
+          <div><button type="submit">Salvar Coletor</button></div>
+          <div><a href="dashboard.html" class="btn-voltar">Voltar ao Menu</a></div>
+        </div>
     </form>
   </div>
 
   <script>
+
+    // funçoes para data e hora atuais. 
+
+    function inserirDataHoraAtual(id) {
+      const agora = new Date();
+
+      const ano = agora.getFullYear();
+      const mes = String(agora.getMonth() + 1).padStart(2, '0');
+      const dia = String(agora.getDate()).padStart(2, '0');
+      const hora = String(agora.getHours()).padStart(2, '0');
+      const minuto = String(agora.getMinutes()).padStart(2, '0');
+
+      const dataHoraFormatada = `${ano}-${mes}-${dia}T${hora}:${minuto}`;
+
+      document.getElementById(id).value = dataHoraFormatada;
+    }
+
     function exibirMensagem(texto, tipo = "success") {
       const msg = document.getElementById("mensagem");
       msg.textContent = texto;
@@ -173,16 +199,17 @@
     });
   </script>
 
-<footer class="rodape-sistema">
-  <div class="rodape-conteudo">
-    <p>© 2025 Sistema de Coletores | Suporte: 
-      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=gilson.araujo@jsl.com.br.com&su=Suporte%20-%20Sistema%20de%20Coletores&body=Olá,%20gostaria%20de%20tirar%20uma%20dúvida%20ou%20fazer%20uma%20sugestão."
-         target="_blank">
-         gilson.araujo@jsl.com.br
-      </a>
-    </p>
-    <p>Telefone para contato: <a href="tel:+550000000000">(35) 9974-48246</a></p>
-  </div>
-</footer>
+  <footer class="rodape-sistema">
+    <div class="rodape-conteudo">
+      <p>© 2025 Sistema de Coletores | Suporte:
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=gilson.araujo@jsl.com.br.com&su=Suporte%20-%20Sistema%20de%20Coletores&body=Olá,%20gostaria%20de%20tirar%20uma%20dúvida%20ou%20fazer%20uma%20sugestão."
+          target="_blank">
+          gilson.araujo@jsl.com.br
+        </a>
+      </p>
+      <p>Telefone para contato: <a href="tel:+550000000000">(35) 9974-48246</a></p>
+    </div>
+  </footer>
 </body>
+
 </html>
