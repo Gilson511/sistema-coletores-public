@@ -22,7 +22,7 @@
   <hr style="border: 0.5; opacity: 0.3;">
 
   <div class="container">
-    <h2><title>Sistema de Coletores - Cadastro</title></h2>
+    <h2>Sistema de Coletores - Cadastro</h2>
     <div id="mensagem" class="mensagem-alerta hidden"></div>
 
     <form id="formColetor" class="form">
@@ -75,14 +75,23 @@
         </div>
       </div>
 
+      <div class="form-group-baixa" style="display: none;">
+
+        <label for="hora_baixa">Data e Hora que Deu Baixa</label>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <input type="datetime-local" id="hora_baixa">
+          <span onclick="inserirDataHoraAtual('hora_baixa')" title="Inserir data e hora atual" style="cursor: pointer;"
+            class="material-icons">schedule</span>
+        </div>
+      </div>
 
       <div class="form-group">
-      
+        <label for="estado">Observações sobre o coletor</label>
+        <input type="text" id="estado">
+      </div>
 
-        <div class="form-group">
-          <label for="estado">Observações sobre o coletor</label>
-          <input type="text" id="estado">
-        </div>
+
+      <div class="form-group">
 
         <div class="botao">
           <div><button type="submit">Salvar Coletor</button></div>

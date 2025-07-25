@@ -40,7 +40,10 @@ header {
   right: 0;
   top: 0;
   width: 100%;
-  background-color: #1b1b1b1b;
+  background: linear-gradient(to bottom, red, white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* sombra inferior */
+  border: none; /* remove qualquer borda */
+  padding: 10px;
 }
 
 .usuario-logado a {
@@ -601,13 +604,6 @@ table tr:nth-child(odd) {
   opacity: 0.9;
 }
 
-.barra-superior {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 3px 30px;
-}
-
 .usuarioLogadoTexto .icone-home {
   display: flex;
   align-items: center;
@@ -673,13 +669,16 @@ table tr:nth-child(odd) {
   color: #D5001C;
 }
 
+
 .area_log {
+  border: 1px solid #D9B6A3; /* tom coral mais escuro */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* sombra suave */
+  opacity: 0.85;
   display: flex;
-  height: auto;
   flex-direction: column;
-  font-weight: normal;
+  padding: 12px 16px;
   color: #1B1B1B;
-  padding-left: 10px;
-  background-color: #F9F9F9;
+  background-color: #FFEFE9; /* fundo coral suave */
 }
 
