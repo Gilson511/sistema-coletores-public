@@ -1,240 +1,225 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+  <!DOCTYPE html>
+  <html lang="pt-br">
 
-<head>
-  <meta charset="UTF-8">
-  <title>Cadastro de Coletor</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  <link rel="icon" href="images/clipboard_1195513.png" type="image/x-icon" />
-  <link rel="stylesheet" href="css/estilo.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Coletor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/clipboard_1195513.png" type="image/x-icon" />
+    <link rel="stylesheet" href="css/estilo.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
 
-<body>
-  <div class="usuario-logado">
-    <p id="usuarioLogadoTexto"></p>
-    <button onclick="logout()">Sair</button>
-  </div>
-
-  <a href="dashboard.html" class="material-icons" title="Voltar ao menu"
-    style="font-size: 35px; color: #D5001C; text-decoration: none;padding-left: 5px;position: fixed;">home</a>
-
-  <hr style="border: 0.5; opacity: 0.3;">
-
-  <div class="container">
-    <h2>Sistema de Coletores - Cadastro</h2>
-    <div id="mensagem" class="mensagem-alerta hidden"></div>
-
-    <form id="formColetor" class="form">
-      <div class="form-group">
-        <label for="re">RE</label>
-        <input type="text" id="re" required>
-      </div>
-
-      <div class="form-group">
-        <label for="numero_coletor">Número do Coletor</label>
-        <input type="text" id="numero_coletor" required>
-      </div>
-
-      <div class="form-group">
-        <label for="encarregado">Encarregado</label>
-        <select id="encarregado" required>
-          <option value="">Selecione</option>
-          <option value="Adriano">Adriano</option>
-          <option value="Yasmim">Yasmim</option>
-          <option value="Dany">Dany</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="turno">Turno</label>
-        <select id="turno" required>
-          <option value="">Selecione</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="setor">Setor</label>
-        <select id="setor" required>
-          <option value="">Selecione</option>
-          <option value="Separacao">Separacao</option>
-          <option value="Expedicao">Expedicao</option>
-          <option value="Inbound">Inbound</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="hora_pegou">Data e Hora que fez retirada</label>
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <input type="datetime-local" id="hora_pegou" required>
-          <span onclick="inserirDataHoraAtual('hora_pegou')" title="Inserir data e hora atual" style="cursor: pointer;"
-            class="material-icons">schedule</span>
-        </div>
-      </div>
-
-      <div class="form-group-baixa" style="display: none;">
-
-        <label for="hora_baixa">Data e Hora que Deu Baixa</label>
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <input type="datetime-local" id="hora_baixa">
-          <span onclick="inserirDataHoraAtual('hora_baixa')" title="Inserir data e hora atual" style="cursor: pointer;"
-            class="material-icons">schedule</span>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="estado">Observações sobre o coletor</label>
-        <input type="text" id="estado">
-      </div>
-
-
-      <div class="form-group">
-
-        <div class="botao">
-          <div><button type="submit">Salvar Coletor</button></div>
-          <div><a href="dashboard.html" class="btn-voltar">Voltar ao Menu</a></div>
-        </div>
-    </form>
-  </div>
-
-  <script>
-
-    // funçoes para data e hora atuais. 
-
-    function inserirDataHoraAtual(id) {
-      const agora = new Date();
-
-      const ano = agora.getFullYear();
-      const mes = String(agora.getMonth() + 1).padStart(2, '0');
-      const dia = String(agora.getDate()).padStart(2, '0');
-      const hora = String(agora.getHours()).padStart(2, '0');
-      const minuto = String(agora.getMinutes()).padStart(2, '0');
-
-      const dataHoraFormatada = `${ano}-${mes}-${dia}T${hora}:${minuto}`;
-
-      document.getElementById(id).value = dataHoraFormatada;
-    }
-
-    function exibirMensagem(texto, tipo = "success") {
-      const msg = document.getElementById("mensagem");
-      msg.textContent = texto;
-      msg.className = `mensagem-alerta ${tipo}`;
-      msg.classList.remove("hidden");
-
-      setTimeout(() => {
-        msg.style.opacity = "0";
-        setTimeout(() => {
-          msg.classList.add("hidden");
-          msg.style.opacity = "1";
-        }, 500);
-      }, 3000);
-    }
-
-    window.onload = function () {
-      const usuario = localStorage.getItem("usuarioLogado");
-
-      const saudacao = document.getElementById("usuarioLogadoTexto");
-
-      if (usuario && saudacao) {
-        saudacao.textContent = `Usuário logado: ${usuario}`;
-      } else {
-        // Esconde botão e texto de logout se não estiver logado
-        document.querySelector(".usuario-logado").style.display = "none";
-      }
-    };
-
-
-    function logout() {
-      localStorage.removeItem("usuarioLogado");
-      localStorage.removeItem("token");
-      window.location.href = "index.html";
-    }
-
-    fetch("https://sistema-coletores-backend-4.onrender.com/api/basecoletores/public", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        numero_coletor: "123",
-        marca: "Motorola",
-        sn: "ABC456"
-      })
-    })
-      .then(res => res.json())
-      .then(dado => alert(dado.message))
-      .catch(err => alert("Erro ao cadastrar"));
-
-
-    document.getElementById("formColetor").addEventListener("submit", async function (e) {
-      e.preventDefault();
-
-      const numeroInformado = document.getElementById("numero_coletor").value.trim(); // o trim serve para remover espaços em branco;
-
-      try {
-        // Verifica se o número existe na base
-        const respostaBase = await fetch("https://sistema-coletores-backend-4.onrender.com/api/basecoletores");
-        const baseColetores = await respostaBase.json();
-        const numeroExisteNaBase = baseColetores.some(c => c.numero_coletor === numeroInformado);
-
-        if (!numeroExisteNaBase) {
-          exibirMensagem("⚠️ Este coletor não está na base de coletores.", "error");
-          formColetor.reset(); // reseta o formulario
-          return;
-        }
-
-        // Verifica se já existe na tabela de registros
-        const respostaTabela = await fetch("https://sistema-coletores-backend-4.onrender.com/api/coletores");
-        const registros = await respostaTabela.json();
-        const duplicado = registros.some(c => c.numero_coletor === numeroInformado);
-
-        if (duplicado) {
-          exibirMensagem("⚠️ Este coletor já está em uso. Informe outro número.", "error");
-          return;
-        }
-
-        const coletor = {
-          re: document.getElementById("re").value,
-          numero_coletor: numeroInformado,
-          encarregado: document.getElementById("encarregado").value,
-          turno: document.getElementById("turno").value,
-          setor: document.getElementById("setor").value,
-          hora_pegou: document.getElementById("hora_pegou").value,
-          hora_baixa: document.getElementById("hora_baixa").value || "",
-          estado: document.getElementById("estado").value
-        };
-
-        const response = await fetch("https://sistema-coletores-backend-4.onrender.com/api/coletores", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(coletor)
-        });
-
-        if (!response.ok) throw new Error("Erro ao cadastrar coletor");
-
-        exibirMensagem("✅ Coletor cadastrado com sucesso!", "success");
-        this.reset();
-      } catch (error) {
-        console.error(error);
-        exibirMensagem("❌ Erro ao cadastrar coletor.", "error");
-      }
-    });
-  </script>
-
-  <footer class="rodape-sistema">
-    <div class="rodape-conteudo">
-      <p>© 2025 Sistema de Coletores | Suporte:
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=gilson.araujo@jsl.com.br.com&su=Suporte%20-%20Sistema%20de%20Coletores&body=Olá,%20gostaria%20de%20tirar%20uma%20dúvida%20ou%20fazer%20uma%20sugestão."
-          target="_blank">
-          gilson.araujo@jsl.com.br
-        </a>
-      </p>
-      <p>Telefone para contato: <a href="tel:+550000000000">(35) 9974-48246</a></p>
+  <body>
+    <div class="usuario-logado">
+      <p id="usuarioLogadoTexto"></p>
+      <button onclick="logout()">Sair</button>
     </div>
-  </footer>
-</body>
 
-</html>
+    <a href="dashboard.html" class="material-icons" title="Voltar ao menu"
+      style="font-size: 35px; color: #D5001C; text-decoration: none;padding-left: 5px;position: fixed;">home</a>
+
+    <hr style="border: 0.5; opacity: 0.3;">
+
+    <div class="container">
+      <h2>Sistema de Coletores - Cadastro</h2>
+      <div id="mensagem" class="mensagem-alerta hidden"></div>
+
+      <form id="formColetor" class="form">
+        <div class="form-group">
+          <label for="re">RE</label>
+          <input type="text" id="re" required>
+        </div>
+
+        <div class="form-group">
+          <label for="numero_coletor">Número do Coletor</label>
+          <input type="text" id="numero_coletor" required>
+        </div>
+
+        <div class="form-group">
+          <label for="encarregado">Encarregado</label>
+          <select id="encarregado" required>
+            <option value="">Selecione</option>
+            <option value="Adriano">Adriano</option>
+            <option value="Yasmim">Yasmim</option>
+            <option value="Dany">Dany</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="turno">Turno</label>
+          <select id="turno" required>
+            <option value="">Selecione</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="setor">Setor</label>
+          <select id="setor" required>
+            <option value="">Selecione</option>
+            <option value="Separacao">Separacao</option>
+            <option value="Expedicao">Expedicao</option>
+            <option value="Inbound">Inbound</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="hora_pegou">Data e Hora que fez retirada</label>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <input type="datetime-local" id="hora_pegou" required>
+            <span onclick="inserirDataHoraAtual('hora_pegou')" title="Inserir data e hora atual" style="cursor: pointer;"
+              class="material-icons">schedule</span>
+          </div>
+        </div>
+
+        <div class="form-group-baixa" style="display: none;">
+
+          <label for="hora_baixa">Data e Hora que Deu Baixa</label>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <input type="datetime-local" id="hora_baixa">
+            <span onclick="inserirDataHoraAtual('hora_baixa')" title="Inserir data e hora atual" style="cursor: pointer;"
+              class="material-icons">schedule</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="estado">Observações sobre o coletor</label>
+          <input type="text" id="estado">
+        </div>
+
+
+        <div class="form-group">
+
+          <div class="botao">
+            <div><button type="submit">Salvar Coletor</button></div>
+            <div><a href="dashboard.html" class="btn-voltar">Voltar ao Menu</a></div>
+          </div>
+      </form>
+    </div>
+
+    <script>
+
+      // funçoes para data e hora atuais. 
+
+      function inserirDataHoraAtual(id) {
+        const agora = new Date();
+
+        const ano = agora.getFullYear();
+        const mes = String(agora.getMonth() + 1).padStart(2, '0');
+        const dia = String(agora.getDate()).padStart(2, '0');
+        const hora = String(agora.getHours()).padStart(2, '0');
+        const minuto = String(agora.getMinutes()).padStart(2, '0');
+
+        const dataHoraFormatada = `${ano}-${mes}-${dia}T${hora}:${minuto}`;
+
+        document.getElementById(id).value = dataHoraFormatada;
+      }
+
+      function exibirMensagem(texto, tipo = "success") {
+        const msg = document.getElementById("mensagem");
+        msg.textContent = texto;
+        msg.className = `mensagem-alerta ${tipo}`;
+        msg.classList.remove("hidden");
+
+        setTimeout(() => {
+          msg.style.opacity = "0";
+          setTimeout(() => {
+            msg.classList.add("hidden");
+            msg.style.opacity = "1";
+          }, 500);
+        }, 3000);
+      }
+
+      window.onload = function () {
+        const usuario = localStorage.getItem("usuarioLogado");
+
+        const saudacao = document.getElementById("usuarioLogadoTexto");
+
+        if (usuario && saudacao) {
+          saudacao.textContent = `Usuário logado: ${usuario}`;
+        } else {
+          // Esconde botão e texto de logout se não estiver logado
+          document.querySelector(".usuario-logado").style.display = "none";
+        }
+      };
+
+
+      function logout() {
+        localStorage.removeItem("usuarioLogado");
+        localStorage.removeItem("token");
+        window.location.href = "index.html";
+      }
+
+
+      document.getElementById("formColetor").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const numeroInformado = document.getElementById("numero_coletor").value.trim(); // o trim serve para remover espaços em branco;
+
+        try {
+          // Verifica se o número existe na base
+          const respostaBase = await fetch("https://sistema-coletores-backend-4.onrender.com/api/basecoletores");
+          const baseColetores = await respostaBase.json();
+          const numeroExisteNaBase = baseColetores.some(c => c.numero_coletor === numeroInformado);
+
+          if (!numeroExisteNaBase) {
+            exibirMensagem("⚠️ Este coletor não está na base de coletores.", "error");
+            formColetor.reset(); // reseta o formulario
+            return;
+          }
+
+          // Verifica se já existe na tabela de registros
+          const respostaTabela = await fetch("https://sistema-coletores-backend-4.onrender.com/api/coletores");
+          const registros = await respostaTabela.json();
+          const duplicado = registros.some(c => c.numero_coletor === numeroInformado);
+
+          if (duplicado) {
+            exibirMensagem("⚠️ Este coletor já está em uso. Informe outro número.", "error");
+            return;
+          }
+
+          const coletor = {
+            re: document.getElementById("re").value,
+            numero_coletor: numeroInformado,
+            encarregado: document.getElementById("encarregado").value,
+            turno: document.getElementById("turno").value,
+            setor: document.getElementById("setor").value,
+            hora_pegou: document.getElementById("hora_pegou").value,
+            hora_baixa: document.getElementById("hora_baixa").value || "",
+            estado: document.getElementById("estado").value
+          };
+
+          const response = await fetch("https://sistema-coletores-backend-4.onrender.com/api/coletores", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(coletor)
+          });
+
+          if (!response.ok) throw new Error("Erro ao cadastrar coletor");
+
+          exibirMensagem("✅ Coletor cadastrado com sucesso!", "success");
+          this.reset();
+        } catch (error) {
+          console.error(error);
+          exibirMensagem("❌ Erro ao cadastrar coletor.", "error");
+        }
+      });
+    </script>
+
+    <footer class="rodape-sistema">
+      <div class="rodape-conteudo">
+        <p>© 2025 Sistema de Coletores | Suporte:
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=gilson.araujo@jsl.com.br.com&su=Suporte%20-%20Sistema%20de%20Coletores&body=Olá,%20gostaria%20de%20tirar%20uma%20dúvida%20ou%20fazer%20uma%20sugestão."
+            target="_blank">
+            gilson.araujo@jsl.com.br
+          </a>
+        </p>
+        <p>Telefone para contato: <a href="tel:+550000000000">(35) 9974-48246</a></p>
+      </div>
+    </footer>
+  </body>
+
+  </html>
