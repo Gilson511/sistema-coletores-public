@@ -136,22 +136,38 @@
     window.onload = function () {
       const usuario = localStorage.getItem("usuarioLogado");
 
-      if (!usuario) {
-        alert("Você precisa estar logado para acessar esta página.");
-        window.location.href = "index.html";
+      const saudacao = document.getElementById("usuarioLogadoTexto");
+
+      if (usuario && saudacao) {
+        saudacao.textContent = `Usuário logado: ${usuario}`;
       } else {
-        const saudacao = document.getElementById("usuarioLogadoTexto");
-        if (saudacao) {
-          saudacao.textContent = `Usuário logado: ${usuario}`;
-        }
+        // Esconde botão e texto de logout se não estiver logado
+        document.querySelector(".usuario-logado").style.display = "none";
       }
     };
+
 
     function logout() {
       localStorage.removeItem("usuarioLogado");
       localStorage.removeItem("token");
       window.location.href = "index.html";
     }
+
+    fetch("https://sistema-coletores-backend-4.onrender.com/api/basecoletores/public", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        numero_coletor: "123",
+        marca: "Motorola",
+        sn: "ABC456"
+      })
+    })
+      .then(res => res.json())
+      .then(dado => alert(dado.message))
+      .catch(err => alert("Erro ao cadastrar"));
+
 
     document.getElementById("formColetor").addEventListener("submit", async function (e) {
       e.preventDefault();
