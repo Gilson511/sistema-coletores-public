@@ -1,7 +1,7 @@
 async function fetchDados() {
   const [base, uso] = await Promise.all([
-    fetch("https://sistema-coletores-backend-4.onrender.com/api/basecoletores").then(r => r.json()),
-    fetch("https://sistema-coletores-backend-4.onrender.com/api/coletores").then(r => r.json())
+    fetch("http://localhost:3000/api/basecoletores").then(r => r.json()),
+    fetch("http://localhost:3000/api/coletores").then(r => r.json())
   ]);
   return { base, uso };
 }

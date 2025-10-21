@@ -54,11 +54,11 @@
 
       <div id="resumo-coletores">
         <div class="card-dashboard">
-          <p class="descricao-card">Total de Rf's cadastrados :</p>
+          <p class="descricao-card">Rf's cadastrados no armazém :</p>
           <p id="coletores-em-uso" class="valor-card">...</p>
-          <p class="descricao-card">Total de coletores registrados :</p>
+          <p class="descricao-card">Coletores retirados :</p>
           <p id="total-coletores" class="valor-card">...</p>
-          <p class="descricao-card">Total de coletores em armazen :</p>
+          <p class="descricao-card">Saldo atual em armazén :</p>
           <p id="total-coletores-armazen" class="valor-card">...</p>
 
         </div>
@@ -137,11 +137,11 @@
 
     async function carregarResumoColetores() {
       try {
-        const respostaBase = await fetch("https://sistema-coletores-backend-4.onrender.com/api/basecoletores");
+        const respostaBase = await fetch("http://localhost:3000/api/basecoletores");
         const baseColetores = await respostaBase.json();
         document.getElementById("coletores-em-uso").textContent = baseColetores.length;
 
-        const resposta = await fetch("https://sistema-coletores-backend-4.onrender.com/api/coletores");
+        const resposta = await fetch("http://localhost:3000/api/coletores");
         const coletores = await resposta.json();
         document.getElementById("total-coletores").textContent = coletores.length;
 

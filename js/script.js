@@ -2,7 +2,7 @@ function login() {
   const usuario = document.getElementById("usuario").value;
   const senha = document.getElementById("senha").value;
 
-  fetch("https://sistema-coletores-backend-4.onrender.com/api/usuarios/login", {
+  fetch("http://localhost:3000/api/usuarios/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -29,6 +29,7 @@ function login() {
     });
     
 }
+
 
 
 function mostrarCadastro() {
@@ -58,7 +59,7 @@ function cadastrarUsuario() {
     return;
   }
 
-  fetch("https://sistema-coletores-backend-4.onrender.com/api/usuarios", {
+  fetch("http://localhost:3000/api/usuarios", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -40,7 +40,7 @@ header {
   right: 0;
   top: 0;
   width: 100%;
-  background: linear-gradient(to bottom, red, white);
+  background: linear-gradient(to right, red, white);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* sombra inferior */
   border: none; /* remove qualquer borda */
   padding: 10px;

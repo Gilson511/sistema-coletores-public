@@ -13,12 +13,12 @@
 </head>
 
 <body>
-    <div class="lado-direito usuario-logado">
-      <span id="usuarioLogadoTexto"></span>
-      <button onclick="logout()">Sair</button>
-      <a href="dashboard.html" class="material-icons" title="Voltar ao menu"
-        style="font-size: 35px;padding-top: 10px; color: #D5001C; text-decoration: none;">home</a>
-    </div>
+  <div class="lado-direito usuario-logado">
+    <span id="usuarioLogadoTexto"></span>
+    <button onclick="logout()">Sair</button>
+    <a href="dashboard.html" class="material-icons" title="Voltar ao menu"
+      style="font-size: 35px;padding-top: 10px; color: #D5001C; text-decoration: none;">home</a>
+  </div>
   </div>
   <hr style="border: 0.5; opacity: 0.3;">
 
@@ -140,7 +140,7 @@
       reader.readAsArrayBuffer(file);
     }
 
-    const baseURL = "https://sistema-coletores-backend-4.onrender.com/api/colaboradores";
+    const baseURL = "http://localhost:3000/api/colaboradores";
     const form = document.getElementById("formColaborador");
     const mensagem = document.getElementById("mensagem");
     const tabela = document.getElementById("tabela-colaboradores");
@@ -264,7 +264,7 @@
     function logout() {
       localStorage.removeItem("usuarioLogado");
       localStorage.removeItem("token");
-      window.location.href = "index.html";  
+      window.location.href = "index.html";
     }
   </script>
 

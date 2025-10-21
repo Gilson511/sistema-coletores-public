@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <title>Cadastrar Usuário</title>
@@ -7,6 +8,7 @@
   <link rel="icon" href="images/clipboard_1195513.png" type="image/x-icon">
   <link rel="stylesheet" href="css/estilo.css">
 </head>
+
 <body>
   <div class="usuario-logado">
     <p id="usuarioLogadoTexto"></p>
@@ -87,7 +89,7 @@
       const token = localStorage.getItem("token");
 
       try {
-        const res = await fetch("https://sistema-coletores-backend-4.onrender.com/api/usuarios", {
+        const res = await fetch("http://localhost:3000/api/usuarios", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -120,4 +122,5 @@
     </div>
   </footer>
 </body>
+
 </html>
