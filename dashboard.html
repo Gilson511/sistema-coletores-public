@@ -43,8 +43,9 @@
       <nav>
         <ul id="menuLinks">
           <li><a href="movimentacoes.html">Movimentações do coletor</a></li>
-          <li><a href="base-coletores.html">Base de Coletores</a></li>
+          <li><a href="base-coletores.html">Cadastro de Coletores</a></li>
           <li><a href="base-colaboradores.html">Base de colaboradores</a></li>
+          <li><a href="banco-coletores.html">Banco de dados</a></li>
         </ul>
       </nav>
     </aside>
@@ -53,17 +54,9 @@
       <h1>Bem-vindo ao Sistema de Coletores</h1>
 
       <div id="resumo-coletores">
-        <div class="card-dashboard">
-          <p class="descricao-card">Rf's cadastrados no armazém :</p>
-          <p id="coletores-em-uso" class="valor-card">...</p>
-          <p class="descricao-card">Coletores retirados :</p>
-          <p id="total-coletores" class="valor-card">...</p>
-          <p class="descricao-card">Saldo atual em armazén :</p>
-          <p id="total-coletores-armazen" class="valor-card">...</p>
-
-        </div>
-
+        <canvas id="graficoResumoColetores" width="400" height="200"></canvas>
       </div>
+
 
       <br><br>
 
@@ -71,14 +64,14 @@
         <h3>Área de Log:</h3>
         <p id="c">Total cadastrados:</p>
         <p id="r">Total retirados:</p>
-        <p id="b">Total que estão no armazem:</p>
+        <p id="b">Total que estão no armazém:</p>
 
       </div>
 
       <br>
 
       <div>
-        <h2 style="color: #B00017;">Visualização de Gráficos</h2>
+        <h2 style="color: #B00017;">Dashboard</h2>
         <label for="filtroData">Filtrar últimos:</label>
         <select id="filtroData" onchange="gerarGraficosFiltrados()">
           <option value="7">7 dias</option>
@@ -139,21 +132,18 @@
       try {
         const respostaBase = await fetch("http://localhost:3000/api/basecoletores");
         const baseColetores = await respostaBase.json();
-        document.getElementById("coletores-em-uso").textContent = baseColetores.length;
 
         const resposta = await fetch("http://localhost:3000/api/coletores");
         const coletores = await resposta.json();
-        document.getElementById("total-coletores").textContent = coletores.length;
 
         const valor_total = baseColetores.length;
         const valor_usado = coletores.length;
         const valor_armazen = valor_total - valor_usado;
-        document.getElementById("total-coletores-armazen").textContent = valor_armazen;
         document.getElementById('c').style.fontWeight = 'normal';
         if (valor_usado >= 1) {
           document.getElementById('r').style.color = 'red';
           document.getElementById('r').style.fontWeight = 'normal';
-          document.getElementById('r').style.fontSize = '16px';
+          document.getElementById('r').style.fontSize = '12px';
         } else {
 
         }
@@ -177,10 +167,49 @@
         document.getElementById('r').innerHTML += ` ${valor_usado}`;
         document.getElementById('b').innerHTML += ` ${valor_armazen}`;
 
+        gerarGraficoResumo(valor_total, valor_usado, valor_armazen);
+
       } catch (err) {
         console.error("Erro ao carregar resumo de coletores:", err);
       }
+
+
     }
+
+    function gerarGraficoResumo(valor_total, valor_usado, valor_armazen) {
+      const ctx = document.getElementById('graficoResumoColetores').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Cadastrados', 'Retirados', 'Em Armazém'],
+          datasets: [{
+            label: 'Resumo de Coletores',
+            data: [valor_total, valor_usado, valor_armazen],
+            backgroundColor: [
+              '#f39c12', // amarelo para "Coletados"
+              '#e74c3c', // vermelho para "Retidos"
+              '#27ae60'  // verde para "Em inspeção"
+            ],
+            borderColor: '#2c3e50',
+            borderWidth: 1
+          }]
+
+
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                stepSize: 1
+              }
+            }
+          }
+        }
+      });
+    }
+
 
     window.addEventListener("DOMContentLoaded", carregarResumoColetores);
 

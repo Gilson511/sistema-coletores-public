@@ -57,7 +57,7 @@
         <select id="encarregado" required>
           <option value="">Selecione</option>
           <option value="Adriano">Adriano</option>
-          <option value="Yasmim">Yasmim</option>
+          <option value="Yasmim">Isabela</option>
           <option value="Dany">Dany</option>
         </select>
       </div>
@@ -81,7 +81,14 @@
           <th>Turno</th>
           <th>Setor</th>
           <th>Encarregado</th>
-          <th>Acões</th>
+        </tr>
+        <tr>
+          <th><input type="text" placeholder="Filtrar RE" onkeyup="filtrarTabela(0, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar Nome" onkeyup="filtrarTabela(1, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar turno" onkeyup="filtrarTabela(2, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar setor" onkeyup="filtrarTabela(3, this.value)" /></th>
+          <th><input type="text" placeholder="Filtrar encarregado" onkeyup="filtrarTabela(4, this.value)" /></th>
+          <th><button onclick="limparFiltros()">Limpar Filtros</button></th>
         </tr>
       </thead>
       <tbody id="tabela-colaboradores"></tbody>
@@ -107,19 +114,17 @@
         const sheet = workbook.Sheets[workbook.SheetNames[0]];
         const colaboradores = XLSX.utils.sheet_to_json(sheet);
 
-        // Validação de colunas obrigatórias
         const camposObrigatorios = ["matricula", "nome_completo", "turno", "setor", "encarregado"];
-        const camposInvalidos = colaboradores.some(colab =>
-          camposObrigatorios.some(campo => !colab[campo])
-        );
+        let ignorados = 0;
 
-        if (camposInvalidos) {
-          exibirMensagem("Alguma linha do Excel está com campos faltando.", "error");
-          return;
-        }
-
-        // Enviar para o backend um por um
         colaboradores.forEach(async (colab) => {
+          const incompleto = camposObrigatorios.some(campo => !colab[campo]);
+          if (incompleto) {
+            ignorados++;
+            console.warn("Linha ignorada por falta de campos:", colab);
+            return;
+          }
+
           try {
             const res = await fetch(baseURL, {
               method: "POST",
@@ -133,12 +138,17 @@
           }
         });
 
-        exibirMensagem("Importação concluída!", "success");
-        setTimeout(carregarColaboradores, 1000); // Atualiza a tabela depois de 1s
+        const msg = ignorados > 0
+          ? `Importação concluída com ${ignorados} linha(s) ignorada(s).`
+          : "Importação concluída com sucesso!";
+        exibirMensagem(msg, "success");
+
+        setTimeout(carregarColaboradores, 1000);
       };
 
       reader.readAsArrayBuffer(file);
     }
+
 
     const baseURL = "http://localhost:3000/api/colaboradores";
     const form = document.getElementById("formColaborador");
@@ -266,6 +276,26 @@
       localStorage.removeItem("token");
       window.location.href = "index.html";
     }
+
+    function filtrarTabela(colunaIndex, valor) {
+      const linhas = document.querySelectorAll("#tabela-colaboradores tr");
+      const filtro = valor.toLowerCase();
+
+      linhas.forEach(linha => {
+        const celula = linha.cells[colunaIndex];
+        if (celula) {
+          const conteudo = celula.textContent.toLowerCase();
+          linha.style.display = conteudo.includes(filtro) ? "" : "none";
+        }
+      });
+    }
+
+
+    function limparFiltros() {
+      document.querySelectorAll("table thead input").forEach(i => i.value = "");
+      document.querySelectorAll("#tabela-colaboradores tr").forEach(l => l.style.display = "");
+    }
+
   </script>
 
   <footer class="rodape-sistema">

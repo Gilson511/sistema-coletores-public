@@ -1,5 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
+
+:root {
+  --cor-body: #F2F2F2;
+  --cor-header: #FFFFFF;
+  --cor-principal: #D5001C;
+  --cor-secundaria: #F04C23;
+  --cor-hover: #FF866E;
+  --cor-texto: #1B1B1B;
+  --cor-borda: #CCCCCC;
+  --cor-teal: #008E8D;
+  --cor-fundo-claro: #F4F4F4;
+  --cor-cinza-claro: #EFEFEF;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -14,13 +28,13 @@ canvas {
   margin-bottom: 30px;
 }
 
+/* === ESTRUTURA BASE === */
 html,
 body {
-  background-color: #F2F2F2;
-  color: #002855;
+  background-color: var(--cor-body);
+  color: var(--cor-texto);
   height: 100%;
   width: auto;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 header {
@@ -28,9 +42,9 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  height: 40px; /* ajuste conforme sua altura real */
+  height: 40px;
   z-index: 1000;
-  background-color: #ffffff; /* ou outra cor de fundo */
+  background-color: var(--cor-header);
 }
 
 
@@ -40,7 +54,7 @@ header {
   right: 0;
   top: 0;
   width: 100%;
-  background: linear-gradient(to right, red, white);
+  background: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* sombra inferior */
   border: none; /* remove qualquer borda */
   padding: 10px;
@@ -77,16 +91,16 @@ header {
   height: 4px;
   width: 100%;
   left: 5px;
-  background-color: #FFFFFF;
+  background-color: #F04C23;
   border-radius: 9px;
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
-  font-weight: 300;
-  font-size: 28px;
-  color: #E03C31;
+  font-weight: bold;
+  font-size: 22px;
+  color: var(--cor-secundaria);
   font-family: 'Poppins', sans-serif;
 }
 
@@ -101,10 +115,11 @@ h2 {
 
 form input {
   border: 1px solid #008E8D;
+  height: 30px;
   outline: none;
   font-size: 14px;
   transition: border 0.3s;
-  border-radius: 5px;
+  border:none;
   background-color: #FFFFFF;
 }
 
@@ -118,16 +133,17 @@ form input {
 
 label {
   margin-bottom: 5px;
-  color: #1B1B1B; /* branco puro */
+  color: var(--cor-texto);
+  font-size: 12px;
 }
 
 input,
 select {
   padding: 10px;
-  border: 1px solid #008E8D; /* teal da JSL */
+  border: none;
   border-radius: 5px;
   background-color: #FFFFFF;
-  color: #1B1B1B; /* preto suave */
+  color: var(000);
 }
 
 input::placeholder {
@@ -135,16 +151,16 @@ input::placeholder {
 }
 
 select option {
-  background-color: #1B1B1B; /* preto suave */
-  color: #FFFFFF;
+  background-color: var(--cor-cinza-claro);
+  color: var(--cor-texto);
 }
 
 button {
-  background-color: #F04C23; /* coral escuro da JSL */
+  background-color:#ffffff;
   max-width: 120px;
   font-size: 12px;
-  color: #FFFFFF;
-  padding: 6px 15px 6px 15px;
+  color: #000;
+  padding: 6px 15px;
   border: none;
   border-radius: 5px;
   font-weight: bold;
@@ -153,11 +169,11 @@ button {
 }
 
 button:hover {
-  background-color: #FF866E; /* tom mais claro do coral */
+  background-color: var(--cor-hover);
 }
 
 .link-cadastro {
-  color: #FF866E; /* coral claro */
+  color: var(--cor-hover);
   text-align: center;
   margin-top: 15px;
   cursor: pointer;
@@ -173,19 +189,19 @@ button:hover {
   display: inline-block;
   max-width: 120px;
   background-color: #FFFFFF;
-  color: #1B1B1B;
-  padding: 4px 5px 4px 5px;
+  color: var(--cor-texto);
+  padding: 4px 5px;
   font-size: 12px;
   font-weight: bold;
   border: none;
   border-radius: 5px;
-  text-decoration: none;
   text-align: center;
   transition: background-color 0.3s, color 0.3s;
+  text-decoration: none;
 }
 
 .btn-voltar:hover {
-  background-color: #FF866E;
+  background-color: var(--cor-hover);
 }
 
 .btn-voltar::before {
@@ -204,19 +220,21 @@ button:hover {
 
 .icone-home .material-icons {
   font-size: 28px;
-  color: #D5001C; /* vermelho escuro JSL */
+  color: var(--cor-principal);
   transition: 0.3s ease;
 }
 
 .icone-home .material-icons:hover {
-  color: #A60016; /* tom mais escuro ao passar o mouse */
+  color: var(--cor-principal); /* tom mais escuro ao passar o mouse */
 }
 
 
 table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(213, 0, 28, 0.15);
+  color: var(--cor-texto);
   margin: 0 auto;
 }
 
@@ -225,14 +243,13 @@ table td {
 }
 
 /* bloco 2 fim*/
-
 table input {
   width: 100%;
   padding: 4px;
   font-size: 10px;
-  background-color: #E8E8E8; /* cinza claro */
-  color: #1B1B1B;
-  border: 1px solid #CCCCCC;
+  background-color: #E8E8E8;
+  color: var(--cor-texto);
+  border: 1px solid var(--cor-borda);
   border-radius: 3px;
   text-align: center;
 }
@@ -240,17 +257,15 @@ table input {
 th,
 td {
   padding: 6px 10px;
-  height: auto;
-  border: 1px solid #CCCCCC;
+  border: 1px solid var(--cor-borda);
   text-align: center;
+  text-transform: uppercase;
 }
 
 th {
-  background-color: #D5001C; /* vermelho JSL */
+  background-color: var(--cor-principal);
   color: #FFFFFF;
   font-size: 12px;
-  font-family: 'Roboto', sans-serif;
-  transition: all 0.2s ease;
 }
 
 th span {
@@ -263,21 +278,19 @@ th span:hover {
 }
 
 td button {
-  display: inline-block;
   margin-right: 4px;
   padding: 6px 8px;
   font-size: 10px;
-  background-color: #F04C23; /* vermelho intenso JSL */
+  background-color: var(--cor-secundaria);
   color: #FFFFFF;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-}
-
-td button:hover {
-  background-color: #FF866E; /* hover coral claro */
-  transform: scale(1.1);
   transition: all 0.2s ease;
+}
+td button:hover {
+  background-color: var(--cor-hover);
+  transform: scale(1.1);
 }
 
 .dashboard-container {
@@ -287,23 +300,19 @@ td button:hover {
 
 .menu-lateral {
   width: 200px;
-  background-color: #F4F4F4; /* fundo vermelho */
+  background-color: var(--cor-fundo-claro);
   padding: 30px 20px;
-  color: #1B1B1B;
-  border: 1px solid #FFB3B3; /* borda clara */
+  color: var(--cor-texto);
+  border: 1px solid #FFB3B3;
   border-radius: 12px;
-  font-weight: 200;
   flex-direction: column;
   gap: 15px;
-  box-sizing: border-box;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
   overflow-y: auto;
-
-  /* Para animação */
   opacity: 0;
   transform: translateX(-100%);
   transition: all 0.3s ease;
@@ -321,6 +330,7 @@ td button:hover {
   text-align: left;
   font-size: 22px;
   padding-left: 10px;
+  font-weight: bolder;
 }
 
 .menu-lateral ul {
@@ -334,7 +344,7 @@ td button:hover {
 }
 
 .menu-lateral ul li a {
-  color: #1B1B1B;
+  color: var(--cor-texto);
   text-decoration: none;
   font-size: 12px;
   padding: 10px;
@@ -344,28 +354,32 @@ td button:hover {
 
 .menu-lateral ul li a:hover {
   background-color: #FFFFFF;
-  color: #D5001C;
+  color: var(--cor-principal);
   border-radius: 4px;
-  transition: 1s;
-  font-weight: 150;
   opacity: 0.7;
 }
 
 .conteudo-dashboard {
   flex: 1;
   padding: 40px;
-  background-color: #F4F4F4;
-  color: #1B1B1B;
+  background-color: var(--cor-fundo-claro);
+  color: var(--cor-texto);
   margin-top: 40px;
 }
 
 .conteudo-dashboard h1 {
-  color: #D5001C;
+  color: var(--cor-principal);
+  font-size: 22px;
+  font-weight: bold;
 }
 
-.conteudo-dashboard h1,
-p {
+.conteudo-dashboard h1{
+  font-weight: bold;
+}
+
+.conteudo-dashboard p {
   font-weight: 300;
+  opacity: 0.5;
 }
 
 .logo-container {
@@ -388,7 +402,7 @@ p {
 }
 
 .export-buttons button {
-  background-color: #D5001C;
+  background-color: var(--cor-principal);
   color: #FFFFFF;
   padding: 10px 15px;
   border: none;
@@ -409,7 +423,7 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #D5001C;
+  background-color: var(--cor-principal);
   padding: 0px 3px;
   flex-wrap: wrap;
 }
@@ -418,14 +432,14 @@ p {
 /* fim */ 
 
 .botao-voltar-menu {
-  background-color: #D5001C;
+  background-color: var(--cor-principal);
   color: #ffffff;
   padding: 0;
   border: none;
   border-radius: 5px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.3s;text-decoration: none;
 }
 
 .usuario-logado,
@@ -469,12 +483,10 @@ p {
   align-items: center;
   justify-content: center;
   flex: 1;
-  width: auto;
   gap: 20px;
-  height: auto;
+  color: var(--cor-principal);
+  opacity: 0.9;
   text-align: center;
-  color: #D5001C;
-  opacity: 0.5;
 }
 
 .card-dashboard p {
@@ -483,7 +495,7 @@ p {
 
 .descricao-card {
   font-size: 18px;
-  color: #1B1B1B;
+  color: var(--cor-texto);
 }
 
 .valor-card {
@@ -588,7 +600,7 @@ table td {
 
 table th {
   background-color: #F7F7F7;
-  color: #D5001C;
+  color: var(--cor-principal);
   font-family: 'Poppins', sans-serif;}
 
 table td {
@@ -620,7 +632,7 @@ table tr:nth-child(odd) {
 .icone-home {
   font-size: 32px;
   text-decoration: none;
-  color: #D5001C;
+  color: var(--cor-principal);
 }
 
 .rodape-sistema {
@@ -633,9 +645,10 @@ table tr:nth-child(odd) {
 }
 
 .rodape-sistema a {
-  color: #007BFF;
-  text-decoration: none;
-  font-weight: bold;
+  color: #1b1b1b;
+  font-size: 14px;
+  text-decoration: underline;
+  font-weight: none;
 }
 
 .rodape-sistema a:hover {
@@ -651,22 +664,24 @@ table tr:nth-child(odd) {
 }
 
 #filtroData {
-  width: 82px;
-  height: 36px;
+  width: 78px;
+  height: 30px;
   padding: 0;
+  border: none;
   text-align: center;
 }
+
 
 .area-graficos canvas {
   width: 300px !important;
   height: 300px !important;
-  opacity: 0.5;
-  background-color: #EFEFEF;
+  opacity: 0.8;
+  background-color: var(--cor-cinza-claro);
 }
 
 .area_log h3 {
   font-family: 'Poppins', sans-serif;
-  color: #D5001C;
+  color: var(--cor-principal);
 }
 
 
@@ -682,3 +697,18 @@ table tr:nth-child(odd) {
   background-color: #FFEFE9; /* fundo coral suave */
 }
 
+.area_log,
+#c,
+#r,
+#b {
+  font-size: 16px;
+}
+
+#graficoResumoColetores {
+  background-color: #fff3cd;
+  margin: 20px auto;
+  display: block;
+  width: 100%;
+  max-width: 1450px;
+  max-height: 400px;
+}

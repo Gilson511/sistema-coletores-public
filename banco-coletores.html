@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/clipboard_1195513.png" type="image/x-icon" />
+
+    <title>Banco de Coletores</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        th {
+            background-color: #F04C23;
+            color: #fff;
+        }
+
+        .export-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .export-icons span {
+            cursor: pointer;
+            font-size: 24px;
+            margin: 0 10px;
+        }
+    </style>
+    <!-- Importa a biblioteca SheetJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+
+<header>
+    <div class="pai">
+        <div class="usuario-logado">
+            <a href="dashboard.html" class="icone-home" title="Voltar ao menu">
+                <span class="material-icons"
+                    style="font-size: 35px; padding-top: 5px;text-decoration:none; color: #000;">voltar ao
+                    menu inicial</span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<body>
+
+    <h1 style="text-align: center;color: #000;">Coletores entregues</h1>
+
+    <table id="tabelaBanco">
+        <thead>
+            <tr>
+                <th>RE</th>
+                <th>Nome</th>
+                <th>Nº Coletor</th>
+                <th>Encarregado</th>
+                <th>Turno</th>
+                <th>Setor</th>
+                <th>Data Retirada</th>
+                <th>Data de Baixa</th>
+                <th>Observações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Linhas serão inseridas via JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        window.onload = async function () {
+            const tabela = document.querySelector("#tabelaBanco tbody");
+
+            try {
+                // Busca os coletores devolvidos do backend
+                const res = await fetch("http://localhost:3000/api/coletores_devolvidos");
+                if (!res.ok) throw new Error("Erro ao buscar coletores devolvidos no banco.");
+
+                const devolvidos = await res.json();
+
+                // Renderiza cada linha
+                devolvidos.forEach(item => {
+                    const linha = document.createElement("tr");
+                    linha.innerHTML = `
+            <td>${item.re || ""}</td>
+            <td>${item.nome || ""}</td>
+            <td>${item.numero_coletor || ""}</td>
+            <td>${item.encarregado || ""}</td>
+            <td>${item.turno || ""}</td>
+            <td>${item.setor || ""}</td>
+            <td>${item.data_retirada || ""}</td>
+            <td>${item.data_baixa || ""}</td>
+            <td>${item.observacoes || ""}</td>
+          `;
+                    tabela.appendChild(linha);
+                });
+            } catch (err) {
+                console.error("❌ Erro ao carregar tabela:", err);
+                alert("Erro ao carregar coletores devolvidos. Verifique o console.");
+            }
+        };
+
+        // Função para exportar para Excel com cabeçalho azul e linhas zebradas
+        function exportarExcel() {
+            const tabela = document.getElementById("tabelaBanco");
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.table_to_sheet(tabela);
+
+            // Aplica estilo: cabeçalho azul + linhas zebradas
+            const range = XLSX.utils.decode_range(ws['!ref']);
+            for (let R = range.s.r; R <= range.e.r; ++R) {
+                for (let C = range.s.c; C <= range.e.c; ++C) {
+                    const cell_address = { c: C, r: R };
+                    const cell_ref = XLSX.utils.encode_cell(cell_address);
+                    if (!ws[cell_ref]) continue;
+
+                    if (R === 0) {
+                        // Cabeçalho azul
+                        ws[cell_ref].s = {
+                            fill: { fgColor: { rgb: "1F4E78" } }, // Azul profissional
+                            font: { bold: true, color: { rgb: "FFFFFF" } }, // Texto branco
+                            alignment: { horizontal: "center", vertical: "center" },
+                            border: {
+                                top: { style: "thin", color: { rgb: "000000" } },
+                                bottom: { style: "thin", color: { rgb: "000000" } },
+                                left: { style: "thin", color: { rgb: "000000" } },
+                                right: { style: "thin", color: { rgb: "000000" } }
+                            }
+                        };
+                    } else {
+                        // Linhas zebradas
+                        const isEven = R % 2 === 0;
+                        ws[cell_ref].s = {
+                            fill: { fgColor: { rgb: isEven ? "FFFFFF" : "D9EAF7" } }, // Branco / Azul bebê claro
+                            font: { color: { rgb: "000000" } },
+                            alignment: { horizontal: "center", vertical: "center" },
+                            border: {
+                                top: { style: "thin", color: { rgb: "CCCCCC" } },
+                                bottom: { style: "thin", color: { rgb: "CCCCCC" } },
+                                left: { style: "thin", color: { rgb: "CCCCCC" } },
+                                right: { style: "thin", color: { rgb: "CCCCCC" } }
+                            }
+                        };
+                    }
+                }
+            }
+
+            XLSX.utils.book_append_sheet(wb, ws, "Coletores Devolvidos");
+            XLSX.writeFile(wb, "coletores_devolvidos.xlsx");
+        }
+    </script>
+
+    <div class="export-buttons">
+        <div class="export-box">
+            <p>📁 Relatórios disponíveis para download:</p>
+            <div class="export-icons">
+                <span title="Exportar para Excel" onclick="exportarExcel()">📊 Exportar Excel</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
