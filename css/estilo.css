@@ -1,24 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 :root {
-  --cor-body: #F2F2F2;
-  --cor-header: #FFFFFF;
-  --cor-principal: #D5001C;
-  --cor-secundaria: #F04C23;
-  --cor-hover: #FF866E;
-  --cor-texto: #1B1B1B;
-  --cor-borda: #CCCCCC;
-  --cor-teal: #008E8D;
-  --cor-fundo-claro: #F4F4F4;
-  --cor-cinza-claro: #EFEFEF;
+  --cor-body: #f2f2f2;
+  --cor-header: #ffffff;
+  --cor-principal: #d5001c;
+  --cor-secundaria: #f04c23;
+  --cor-hover: #ff866e;
+  --cor-texto: #1b1b1b;
+  --cor-borda: #cccccc;
+  --cor-teal: #008e8d;
+  --cor-fundo-claro: #f4f4f4;
+  --cor-cinza-claro: #efefef;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 canvas {
@@ -46,7 +45,6 @@ header {
   z-index: 1000;
   background-color: var(--cor-header);
 }
-
 
 .usuario-logado {
   display: flex;
@@ -91,17 +89,19 @@ header {
   height: 4px;
   width: 100%;
   left: 5px;
-  background-color: #F04C23;
+  background-color: var(--cor-texto);
+  opacity: 0.8;
   border-radius: 9px;
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
-  font-weight: bold;
-  font-size: 22px;
-  color: var(--cor-secundaria);
-  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  color: var(--cor-texto);
+  opacity: 0.7;
+  font-family: "Poppins", sans-serif;
 }
 
 .form {
@@ -114,15 +114,14 @@ h2 {
 }
 
 form input {
-  border: 1px solid #008E8D;
+  border: 1px solid #008e8d;
   height: 30px;
   outline: none;
   font-size: 14px;
   transition: border 0.3s;
-  border:none;
-  background-color: #FFFFFF;
+  border: none;
+  background-color: #ffffff;
 }
-
 
 /*-------------*/
 
@@ -137,12 +136,17 @@ label {
   font-size: 12px;
 }
 
+input {
+  pointer-events: auto;
+  z-index: 1;
+}
+
 input,
 select {
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   color: var(000);
 }
 
@@ -156,7 +160,7 @@ select option {
 }
 
 button {
-  background-color:#ffffff;
+  background-color: #ffffff;
   max-width: 120px;
   font-size: 12px;
   color: #000;
@@ -188,7 +192,7 @@ button:hover {
 .btn-voltar {
   display: inline-block;
   max-width: 120px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   color: var(--cor-texto);
   padding: 4px 5px;
   font-size: 12px;
@@ -205,8 +209,8 @@ button:hover {
 }
 
 .btn-voltar::before {
-  background-color: #FF866E;
-  color: #FFFFFF;
+  background-color: #ff866e;
+  color: #ffffff;
 }
 
 .container {
@@ -228,11 +232,10 @@ button:hover {
   color: var(--cor-principal); /* tom mais escuro ao passar o mouse */
 }
 
-
 table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   box-shadow: 0 2px 8px rgba(213, 0, 28, 0.15);
   color: var(--cor-texto);
   margin: 0 auto;
@@ -247,7 +250,7 @@ table input {
   width: 100%;
   padding: 4px;
   font-size: 10px;
-  background-color: #E8E8E8;
+  background-color: #e8e8e8;
   color: var(--cor-texto);
   border: 1px solid var(--cor-borda);
   border-radius: 3px;
@@ -264,14 +267,15 @@ td {
 
 th {
   background-color: var(--cor-principal);
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 12px;
 }
 
 th span {
   display: inline-block;
   transition: transform 0.2s ease;
-  font-family: 'Poppins', sans-serif;}
+  font-family: "Poppins", sans-serif;
+}
 
 th span:hover {
   transform: scale(1.4);
@@ -282,7 +286,7 @@ td button {
   padding: 6px 8px;
   font-size: 10px;
   background-color: var(--cor-secundaria);
-  color: #FFFFFF;
+  color: #ffffff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -303,7 +307,7 @@ td button:hover {
   background-color: var(--cor-fundo-claro);
   padding: 30px 20px;
   color: var(--cor-texto);
-  border: 1px solid #FFB3B3;
+  border: 1px solid #ffb3b3;
   border-radius: 12px;
   flex-direction: column;
   gap: 15px;
@@ -353,7 +357,7 @@ td button:hover {
 }
 
 .menu-lateral ul li a:hover {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   color: var(--cor-principal);
   border-radius: 4px;
   opacity: 0.7;
@@ -368,13 +372,14 @@ td button:hover {
 }
 
 .conteudo-dashboard h1 {
-  color: var(--cor-principal);
+  color: var(--cor-texto);
+  opacity: 0.8;
   font-size: 22px;
-  font-weight: bold;
+  font-weight: normal;
 }
 
-.conteudo-dashboard h1{
-  font-weight: bold;
+.conteudo-dashboard h1 {
+  font-weight: normal;
 }
 
 .conteudo-dashboard p {
@@ -403,7 +408,7 @@ td button:hover {
 
 .export-buttons button {
   background-color: var(--cor-principal);
-  color: #FFFFFF;
+  color: #ffffff;
   padding: 10px 15px;
   border: none;
   border-radius: 4px;
@@ -414,7 +419,7 @@ td button:hover {
 }
 
 .export-buttons button:hover {
-  background-color: #FF866E;
+  background-color: #ff866e;
   transform: scale(1.1);
   transition: all 0.2s ease;
 }
@@ -428,8 +433,7 @@ td button:hover {
   flex-wrap: wrap;
 }
 
-
-/* fim */ 
+/* fim */
 
 .botao-voltar-menu {
   background-color: var(--cor-principal);
@@ -439,7 +443,8 @@ td button:hover {
   border-radius: 5px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;text-decoration: none;
+  transition: 0.3s;
+  text-decoration: none;
 }
 
 .usuario-logado,
@@ -525,7 +530,7 @@ td button:hover {
   text-align: left;
   font-size: 14px;
   font-weight: bold;
-  color: #1B1B1B;
+  color: #1b1b1b;
   width: 100%;
   max-width: 400px;
   opacity: 0.6;
@@ -540,7 +545,7 @@ td button:hover {
 }
 
 .export-icons span:hover {
-  color: #F04C23;
+  color: #f04c23;
   transform: scale(1.1);
   transition: all 0.2s ease;
 }
@@ -585,34 +590,44 @@ td button:hover {
 table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   box-shadow: 0 2px 8px rgba(213, 0, 28, 0.15);
-  color: #1B1B1B;
+  color: #1b1b1b;
 }
 
 table th,
 table td {
   padding: 12px;
-  border: 1px solid #CCCCCC;
+  border: 1px solid #cccccc;
   text-align: center;
   text-transform: uppercase;
 }
 
-table th {
-  background-color: #F7F7F7;
-  color: var(--cor-principal);
-  font-family: 'Poppins', sans-serif;}
+table thead tr.coluna_tabela_retirados th {
+  background-color: #f04c23;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+table thead tr.filtros th {
+  background-color: #f7f7f7;
+  color: #333;
+}
 
 table td {
   font-size: 10px;
+  color: #1b1b1b;
+  background-color: #ffffff;
 }
 
 table tr:nth-child(even) {
-  background-color: #FAFAFA;
+  background-color: #fafafa;
 }
 
 table tr:nth-child(odd) {
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
   opacity: 0.9;
 }
 
@@ -636,7 +651,7 @@ table tr:nth-child(odd) {
 }
 
 .rodape-sistema {
-  color: #1B1B1B;
+  color: #1b1b1b;
   padding: 20px;
   text-align: center;
   font-size: 14px;
@@ -671,7 +686,6 @@ table tr:nth-child(odd) {
   text-align: center;
 }
 
-
 .area-graficos canvas {
   width: 300px !important;
   height: 300px !important;
@@ -680,21 +694,22 @@ table tr:nth-child(odd) {
 }
 
 .area_log h3 {
-  font-family: 'Poppins', sans-serif;
-  color: var(--cor-principal);
+  font-family: "Poppins", sans-serif;
+  color: var(--cor-texto);
+  opacity: 0.8;
+  font-weight: normal;
 }
 
-
 .area_log {
-  border: 1px solid #D9B6A3; /* tom coral mais escuro */
+  border: 1px solid #d9b6a3; /* tom coral mais escuro */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* sombra suave */
   opacity: 0.85;
   display: flex;
   flex-direction: column;
   padding: 12px 16px;
-  color: #1B1B1B;
-  background-color: #FFEFE9; /* fundo coral suave */
+  color: #1b1b1b;
+  background-color: #ffefe9; /* fundo coral suave */
 }
 
 .area_log,

@@ -17,7 +17,7 @@
   </div>
 
   <a href="dashboard.html" class="material-icons" title="Voltar ao menu"
-    style="font-size: 35px; color: #D5001C; text-decoration: none;padding-left: 5px;position: fixed;">home</a>
+    style="font-size: 35px; color: #333; text-decoration: none;padding-left: 5px;position: fixed;">home</a>
 
   <hr style="border: 0.5; opacity: 0.3;">
 
@@ -106,19 +106,19 @@
 
     // funçoes para data e hora atuais. 
 
+
+    // Função corrigida para inserir data e hora locais corretamente
     function inserirDataHoraAtual(id) {
       const agora = new Date();
 
-      const ano = agora.getFullYear();
-      const mes = String(agora.getMonth() + 1).padStart(2, '0');
-      const dia = String(agora.getDate()).padStart(2, '0');
-      const hora = String(agora.getHours()).padStart(2, '0');
-      const minuto = String(agora.getMinutes()).padStart(2, '0');
+      // Corrige o deslocamento de fuso horário (UTC → Local)
+      const offsetMs = agora.getTimezoneOffset() * 60000;
+      const localISOTime = new Date(agora - offsetMs).toISOString().slice(0, 16);
+      // Formato: yyyy-MM-ddTHH:mm
 
-      const dataHoraFormatada = `${ano}-${mes}-${dia}T${hora}:${minuto}`;
-
-      document.getElementById(id).value = dataHoraFormatada;
+      document.getElementById(id).value = localISOTime;
     }
+
 
     function exibirMensagem(texto, tipo = "success") {
       const msg = document.getElementById("mensagem");

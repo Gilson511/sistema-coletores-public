@@ -5,32 +5,30 @@ function login() {
   fetch("http://localhost:3000/api/usuarios/login", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({ usuario, senha })
+    body: JSON.stringify({ usuario, senha }),
   })
-    .then(res => res.json())
-    .then(data => {
+    .then((res) => res.json())
+    .then((data) => {
       if (data.message === "Login bem-sucedido") {
         localStorage.setItem("usuarioLogado", data.usuario);
         localStorage.setItem("tipoUsuario", data.tipo);
         localStorage.setItem("token", data.token);
         window.location.href = "dashboard.html";
       } else {
-          let erro_loguim = document.querySelector('.erro-loguim');
-          erro_loguim.style.fontSize = '14px';
-          erro_loguim.style.color = 'red';
-          erro_loguim.innerHTML = 'Usuário ou senha inválidos, repita a senha por favor.';
+        let erro_loguim = document.querySelector(".erro-loguim");
+        erro_loguim.style.fontSize = "14px";
+        erro_loguim.style.color = "red";
+        erro_loguim.innerHTML =
+          "Usuário ou senha inválidos, repita a senha por favor.";
       }
     })
-    .catch(error => {
+    .catch((error) => {
       console.error("Erro no login:", error);
       alert("Erro ao tentar logar.");
     });
-    
 }
-
-
 
 function mostrarCadastro() {
   document.getElementById("login-form").classList.add("hidden");
@@ -63,12 +61,12 @@ function cadastrarUsuario() {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer " + token
+      Authorization: "Bearer " + token,
     },
-    body: JSON.stringify({ usuario: novoUsuario, senha: novaSenha })
+    body: JSON.stringify({ usuario: novoUsuario, senha: novaSenha }),
   })
-    .then(res => res.json())
-    .then(data => {
+    .then((res) => res.json())
+    .then((data) => {
       if (data.message === "Usuário cadastrado com sucesso!") {
         alert("Usuário cadastrado com sucesso!");
         mostrarLogin();
@@ -76,9 +74,8 @@ function cadastrarUsuario() {
         alert(data.error || "Erro ao cadastrar.");
       }
     })
-    .catch(error => {
+    .catch((error) => {
       console.error("Erro no cadastro:", error);
       alert("Erro ao tentar cadastrar.");
     });
 }
-
