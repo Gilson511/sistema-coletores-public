@@ -266,7 +266,6 @@ td {
 }
 
 th {
-  background-color: var(--cor-principal);
   color: #ffffff;
   font-size: 12px;
 }
@@ -609,6 +608,10 @@ table thead tr.coluna_tabela_retirados th {
   font-family: "Poppins", sans-serif;
   text-transform: uppercase;
   text-align: center;
+}
+
+table thead tr.base-colaboradores th {
+  background-color: #f04c23 !important;
 }
 
 table thead tr.filtros th {
