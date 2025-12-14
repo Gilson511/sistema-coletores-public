@@ -296,6 +296,10 @@ td button:hover {
   transform: scale(1.1);
 }
 
+#format-coletores th {
+  background-color: #f04c23 !important;
+}
+
 .dashboard-container {
   display: flex;
   min-height: 100vh;
@@ -586,6 +590,11 @@ td button:hover {
 }
 
 /* === TABELAS === */
+
+#tabela-coletores thead tr th {
+  background-color: #f04c23 !important;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
