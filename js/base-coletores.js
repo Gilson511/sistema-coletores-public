@@ -1,4 +1,5 @@
 let editandoId = null;
+let listaColetores = [];
 
 // Verifica se usuário está logado
 const usuario = localStorage.getItem("usuarioLogado");
@@ -28,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch("http://localhost:3000/api/basecoletores")
       .then((res) => res.json())
       .then((coletores) => {
+        listaColetores = coletores;
         tbody.innerHTML = "";
 
         coletores.sort(
@@ -110,6 +112,21 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      // 🔒 BLOQUEIA número de coletor duplicado
+      const numeroJaExiste = listaColetores.some((c) => {
+        return (
+          c.numero_coletor === numero && (!editandoId || c.id !== editandoId) // permite salvar se for o mesmo registro
+        );
+      });
+
+      if (numeroJaExiste) {
+        exibirMensagem(
+          "Já existe um coletor cadastrado com esse número.",
+          "red"
+        );
+        return;
+      }
+
       const metodo = editandoId ? "PUT" : "POST";
       const url = editandoId
         ? `http://localhost:3000/api/basecoletores/${editandoId}`
@@ -135,7 +152,10 @@ document.addEventListener("DOMContentLoaded", () => {
           carregarColetores();
         })
         .catch(() => {
-          exibirMensagem("Erro ao salvar coletor.", "red");
+          exibirMensagem(
+            "Erro ao salvar coletor,já consta um coletor com mesmo SN.",
+            "red"
+          );
         });
     });
 

@@ -16,6 +16,7 @@
     <p id="usuarioLogadoTexto"></p>
     <button onclick="logout()" style="margin-left: 20px;">Sair</button>
 
+
     <div class="icone-menu" id="icone-menu-header">
       <div></div>
       <div></div>
@@ -61,34 +62,37 @@
       <br><br>
 
       <div class="area_log">
-        <h3>Área de Log:</h3>
-        <p id="c">Total cadastrados:</p>
-        <p id="r">Total retirados:</p>
-        <p id="b">Total que estão no armazém:</p>
-
+        <h3>Coletores em uso</h3>
+        <ul id="listaColetoresUso"></ul>
       </div>
-
-      <br>
-
-      <div>
-        <h2>Dashboard</h2>
-        <label for="filtroData">Filtrar últimos:</label>
-        <select id="filtroData" onchange="gerarGraficosFiltrados()">
-          <option value="7">7 dias</option>
-          <option value="15">15 dias</option>
-          <option value="30">30 dias</option>
-          <option value="todos">Todos</option>
-        </select>
-      </div>
-
-      <div class="area-graficos">
-        <canvas id="graficoStatus" width="80" height="80"></canvas>
-        <canvas id="graficoLinhaData" width="80" height="80"></canvas>
-        <canvas id="graficoBaixas" width="80" height="80"></canvas>
-      </div>
-
-
     </main>
+  </div>
+
+  <br>
+
+  <div>
+    <h2>Dashboard</h2>
+    <div class="filtro">
+      <label for="filtroData">Filtrar últimos:</label>
+
+    </div>
+    <select id="filtroData" onchange="gerarGraficosFiltrados()">
+      <option value="7">7 dias</option>
+      <option value="15">15 dias</option>
+      <option value="30">30 dias</option>
+      <option value="todos">Todos</option>
+    </select>
+
+  </div>
+
+  <div class="area-graficos">
+    <canvas id="graficoStatus" width="80" height="80"></canvas>
+    <canvas id="graficoLinhaData" width="80" height="80"></canvas>
+    <canvas id="graficoBaixas" width="80" height="80"></canvas>
+  </div>
+
+
+  </main>
   </div>
 
   <footer class="rodape-sistema">
@@ -136,43 +140,29 @@
         const resposta = await fetch("http://localhost:3000/api/coletores");
         const coletores = await resposta.json();
 
+        const lista = document.getElementById("listaColetoresUso");
+        lista.innerHTML = '';
+
+        const coletores_em_uso = coletores.filter(c => !c.hora_baixa);
+        if (coletores_em_uso.length === 0) {
+          lista.innerHTML = "<li>Nenhum coletor em uso no momento!</li>";
+        } else {
+          coletores_em_uso.forEach(c => {
+            const item = document.createElement("li");
+            item.textContent = `Coletor ${c.numero_coletor} - ${c.re}`;
+            lista.appendChild(item);
+          });
+        }
+
         const valor_total = baseColetores.length;
         const valor_usado = coletores.length;
         const valor_armazen = valor_total - valor_usado;
-        document.getElementById('c').style.fontWeight = 'normal';
-        if (valor_usado >= 1) {
-          document.getElementById('r').style.color = 'red';
-          document.getElementById('r').style.fontWeight = 'normal';
-          document.getElementById('r').style.fontSize = '12px';
-        } else {
-
-        }
-        if (valor_armazen < valor_total) {
-          document.getElementById('b').style.color = 'gray';
-          document.getElementById('b').style.fontWeight = 'normal';
-        }
-
-        if (valor_usado == 0) {
-          let arrayIds = ['c', 'r', 'b'];
-
-          arrayIds.forEach(id => {
-            document.getElementById(id).style.color = 'green';
-          })
-
-
-        }
-
-
-        document.getElementById('c').innerHTML += ` ${valor_total}`;
-        document.getElementById('r').innerHTML += ` ${valor_usado}`;
-        document.getElementById('b').innerHTML += ` ${valor_armazen}`;
 
         gerarGraficoResumo(valor_total, valor_usado, valor_armazen);
 
       } catch (err) {
         console.error("Erro ao carregar resumo de coletores:", err);
       }
-
 
     }
 

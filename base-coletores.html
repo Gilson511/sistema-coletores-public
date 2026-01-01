@@ -27,7 +27,13 @@
 
     <form id="form-coletor">
       <input type="text" id="numero" placeholder="Número do coletor" required />
-      <input type="text" id="marca" placeholder="Marca (ex: Zebra)" required />
+      <select id="marca" required>
+        <option value="">Selecione a marca</option>
+        <option value="Zebra">Zebra</option>
+        <option value="Honeywell">Honeywell</option>
+        <option value="Motorola">Motorola</option>
+        <option value="Outros">Outros</option>
+      </select>
       <input type="text" id="sn" placeholder="SN (identificador único)" required />
     </form>
 

@@ -43,7 +43,6 @@
           <option value="Adriano">Adriano</option>
           <option value="Isabela">Isabela</option>
           <option value="Dany">Dany</option>
-          <option value="Fábricio">Fábricio</option>
           <option value="Flávio">Flávio</option>
         </select>
       </div>
@@ -163,6 +162,9 @@
         .trim()
         .replace(/[\s\r\n\t]/g, '');
 
+      const reInformado = document.getElementById("re").value
+        .trim()
+
       try {
         // Verifica se o número existe na base
         const respostaBase = await fetch("http://localhost:3000/api/basecoletores");
@@ -174,16 +176,24 @@
           formColetor.reset(); // reseta o formulario
           return;
         }
-
         // Verifica se já existe na tabela de registros
         const respostaTabela = await fetch("http://localhost:3000/api/coletores");
         const registros = await respostaTabela.json();
         const duplicado = registros.some(c => c.numero_coletor === numeroInformado);
+        const usuarioTemRetiradaPendente = registros.some(c => c.re === reInformado && !c.hora_baixa);
+
 
         if (duplicado) {
           exibirMensagem("⚠️ Este coletor já está em uso. Informe outro número.", "error");
           return;
         }
+
+        if (usuarioTemRetiradaPendente) {
+          exibirMensagem("⚠️ Essa mátricula já está em uso, fazer a baixa para próxima retirada.", "error");
+          return;
+        }
+
+        //verifica se o usuario ja existe na tabela coletores, pois ele nao pode retirar dois RF. 
 
         const coletor = {
           re: document.getElementById("re").value,

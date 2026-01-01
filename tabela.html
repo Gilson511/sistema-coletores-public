@@ -33,15 +33,15 @@
       <thead>
         <tr class="coluna_tabela_retirados">
           <th style="width: 300px;"><span>RE</span></th>
-          <th style="width: 180px;"><span>Nome</span></th>
+          <th style="width: 350px;"><span>Nome</span></th>
           <th><span>Nº Coletor</span></th>
           <th><span>Encarregado</span></th>
           <th><span>Turno</span></th>
-          <th><span>Setor</span></th>
+          <th style="width: 180px;"><span>Setor</span></th>
           <th style="width: 150px;"><span>Data retirada</span></th>
           <th style="width: 150px;"><span>Hora deu baixa</span></th>
           <th><span>Observações</span></th>
-          <th style="width: 300px;"><span>Ações</span></th>
+          <th style="width: 500px;"><span>Ações</span></th>
         </tr>
         <tr class="filtros">
           <th><input type="text" placeholder="Filtrar RE" onkeyup="filtrarTabela(0, this.value)" /></th>
@@ -171,12 +171,14 @@
       const existeNaBase = await validarNumeroNaBase(numero_coletor);
       const log = document.querySelector('.log');
 
+      // formatação da mensagem. 
       if (!existeNaBase) {
         log.style.color = 'red';
         log.textContent = `⚠️ O número informado (${numero_coletor}) não existe na base.`;
         inputs[2].focus();
         return;
       }
+
 
       const coletorAtualizado = { re, numero_coletor, encarregado, turno, setor, hora_pegou, hora_baixa, estado };
 
@@ -238,7 +240,6 @@
         const res = await fetch(`${baseURL}/${id}`, { method: "DELETE" });
         if (!res.ok) throw new Error("Erro ao excluir coletor no banco principal.");
 
-        alert("✅ Coletor excluído e salvo na tabela 'coletores_devolvidos'.");
         carregarColetores();
 
       } catch (err) {

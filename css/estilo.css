@@ -136,6 +136,10 @@ label {
   font-size: 12px;
 }
 
+.filtro {
+  padding-left: 37px;
+}
+
 input {
   pointer-events: auto;
   z-index: 1;
@@ -157,6 +161,14 @@ input::placeholder {
 select option {
   background-color: var(--cor-cinza-claro);
   color: var(--cor-texto);
+}
+
+#form-coletor select {
+  padding: 7px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: var(000);
 }
 
 button {
@@ -364,6 +376,17 @@ td button:hover {
   color: var(--cor-principal);
   border-radius: 4px;
   opacity: 0.7;
+}
+
+.area_log ul {
+  list-style: none;
+  padding: 0;
+}
+
+.area_log li {
+  padding: 6px;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
 }
 
 .conteudo-dashboard {
@@ -696,6 +719,7 @@ table tr:nth-child(odd) {
   padding: 0;
   border: none;
   text-align: center;
+  margin: 5px 15px 5px 35px;
 }
 
 .area-graficos canvas {
