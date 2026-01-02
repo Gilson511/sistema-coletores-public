@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 :root {
-  --cor-body: #f2f2f2;
+  --cor-body: #f5f7fa;
   --cor-header: #ffffff;
   --cor-principal: #d5001c;
   --cor-secundaria: #f04c23;
@@ -762,4 +762,201 @@ table tr:nth-child(odd) {
   width: 100%;
   max-width: 1450px;
   max-height: 400px;
+}
+
+/* =====================================================
+   LOGIN — ESTILO EXCLUSIVO DA PÁGINA
+   Escopo forte para vencer CSS global
+===================================================== */
+
+body.pagina-login {
+  background: #e5e7eb; /* cinza claro moderno */
+}
+
+/* ===== CONTAINER (CARD CENTRAL) ===== */
+body.pagina-login > .container {
+  display: flex;
+  max-width: 900px;
+  width: 100%;
+  height: 70vh;
+  margin: 80px auto;
+  padding: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* OVERLAY */
+body.pagina-login > .container > .lado-esquerdo {
+  width: 80%;
+  height: auto;
+  background-color: #f5f7fa;
+  background-image: url("../images/jsl.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+/* ===== LADO DIREITO (FORMULÁRIOS) ===== */
+body.pagina-login > .container > .lado-direito {
+  width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+}
+
+body.pagina-login .form {
+  width: 100%;
+  max-width: 360px;
+  gap: 18px;
+}
+
+/* ===== FORMULÁRIOS (LOGIN / CADASTRO) ===== */
+body.pagina-login .lado-direito .form {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 0; /* anula margin auto global */
+}
+
+/* ===== TÍTULO ===== */
+body.pagina-login h2 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--cor-texto);
+  opacity: 0.85;
+}
+
+/* ===== INPUTS ===== */
+body.pagina-login input {
+  height: 44px;
+
+  padding: 12px;
+  font-size: 14px;
+  background-color: #f5f7fa;
+}
+
+body.pagina-login input:focus {
+  outline: none;
+  border: 1px solid #f5f7fa;
+}
+
+/* ===== BOTÃO ===== */
+body.pagina-login .area-botao {
+  display: flex;
+  justify-content: center;
+}
+
+body.pagina-login .area-botao button {
+  width: 100%;
+  padding: 14px;
+  font-size: 14px;
+  background-color: #2563eb; /* azul moderno */
+  color: #ffffff;
+  border-radius: 6px;
+  border: none;
+}
+
+body.pagina-login .area-botao button:hover {
+  opacity: 0.9;
+}
+
+body.pagina-login .area-botao button:hover {
+  background-color: var(--cor-hover);
+}
+
+/* ===== LINK CADASTRO ===== */
+body.pagina-login .link-cadastro {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+  color: var(--cor-hover);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+body.pagina-login .login-info {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  max-width: 380px;
+  color: #1f2937;
+}
+
+body.pagina-login .login-logo {
+  width: 120px;
+  margin-bottom: 20px;
+}
+
+body.pagina-login .login-info h1 {
+  font-size: 26px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+body.pagina-login .login-info p {
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0.8;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 900px) {
+  body.pagina-login > .container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  body.pagina-login > .container > .lado-esquerdo {
+    width: 100%;
+    height: 220px;
+  }
+
+  body.pagina-login > .container > .lado-direito {
+    width: 100%;
+    padding: 40px;
+  }
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body.pagina-login > .container {
+  animation: fadeSlide 2s ease-out;
+}
+
+body.pagina-login .form {
+  animation: fadeSlide 0.8s ease-out;
+}
+
+/* ===== AJUSTE: TÍTULO DO LOGIN ALINHADO À ESQUERDA ===== */
+body.pagina-login .lado-direito .form h2 {
+  text-align: left;
+  margin-bottom: 25px;
+}
+
+body.pagina-login .lado-esquerdo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+body.pagina-login .login-info {
+  position: static; /* remove absolute */
+  text-align: center;
+  max-width: 420px;
 }
