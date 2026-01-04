@@ -63,7 +63,22 @@
 
       <div class="area_log">
         <h3>Coletores em uso</h3>
-        <ul id="listaColetoresUso"></ul>
+
+        <table id="tabela-coletores">
+          <thead>
+            <tr>
+              <th>Nº Coletor</th>
+              <th>Matrícula</th>
+              <th>Nome</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="corpo-tabela-coletores">
+            <!-- Dados entram aqui -->
+          </tbody>
+        </table>
+
       </div>
     </main>
   </div>
@@ -137,20 +152,41 @@
         const respostaBase = await fetch("http://localhost:3000/api/basecoletores");
         const baseColetores = await respostaBase.json();
 
+        //buscar colaboradores
+
+        const resColaboradores = await fetch("http://localhost:3000/api/colaboradores");
+        const baseColaboradores = await resColaboradores.json();
         const resposta = await fetch("http://localhost:3000/api/coletores");
         const coletores = await resposta.json();
+        const corpoTabela = document.getElementById('corpo-tabela-coletores');
+        corpoTabela.innerHTML = '';
+        const mapaColaboradores = {};
 
-        const lista = document.getElementById("listaColetoresUso");
-        lista.innerHTML = '';
+
+        baseColaboradores.forEach(col => {
+          mapaColaboradores[col.matricula] = col.nome_completo; //relacão de matricula com nome. 
+        })
 
         const coletores_em_uso = coletores.filter(c => !c.hora_baixa);
+
         if (coletores_em_uso.length === 0) {
-          lista.innerHTML = "<li>Nenhum coletor em uso no momento!</li>";
+          corpoTabela.innerHTML = `
+            <tr>  
+              <td colspan="3">Nenhum coletor em uso no momento!</td>
+            </tr>
+          `;
         } else {
           coletores_em_uso.forEach(c => {
-            const item = document.createElement("li");
-            item.textContent = `Coletor ${c.numero_coletor} - ${c.re}`;
-            lista.appendChild(item);
+            const nome = mapaColaboradores[c.re] || "Não encontrado";
+
+            const linha = document.createElement("tr");
+            linha.innerHTML = `
+              <td>${c.numero_coletor}</td>
+              <td>${c.re}</td>
+              <td>${nome}</td>
+            `;
+
+            corpoTabela.appendChild(linha);
           });
         }
 
@@ -171,14 +207,14 @@
       new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ['Cadastrados', 'Retirados', 'Em Armazém'],
+          labels: ['Total de coletores', 'Em uso', 'Em Standby'],
           datasets: [{
             label: 'Resumo de Coletores',
             data: [valor_total, valor_usado, valor_armazen],
             backgroundColor: [
-              '#f39c12', // amarelo para "Coletados"
-              '#e74c3c', // vermelho para "Retidos"
-              '#27ae60'  // verde para "Em inspeção"
+              '#b9d9eb', // azul para "cadastrados"
+              '#e74c3c', // vermelho para "em uso"
+              '#fbe870'  // amarelo para "disponiveis"
             ],
             borderColor: '#2c3e50',
             borderWidth: 1

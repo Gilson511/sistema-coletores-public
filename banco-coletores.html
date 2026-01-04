@@ -5,49 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="images/clipboard_1195513.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="../public/css/banco-coletores.css" />
 
     <title>Banco de Coletores</title>
-
-    <!-- Fonte Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #fafafa;
-            color: #333;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        th,
-        td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #F04C23;
-            color: #fff;
-        }
-
-        .export-buttons {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .export-icons span {
-            cursor: pointer;
-            font-size: 20px;
-            margin: 0 10px;
-        }
-    </style>
 
     <!-- Importa a biblioteca SheetJS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -80,6 +40,8 @@
                 <th>Data Retirada</th>
                 <th>Data de Baixa</th>
                 <th>Observações</th>
+                <th>Ações</th>
+
             </tr>
         </thead>
         <tbody>
@@ -130,6 +92,9 @@
             <td>${formatarDataHoraBR(item.data_retirada)}</td>
             <td>${formatarDataHoraBR(item.data_baixa)}</td>
             <td>${item.observacoes || ""}</td>
+            <td>
+                <button onclick="excluircoletorBanco(${item.id})">Excluir</button>
+            </td>
           `;
                     tabela.appendChild(linha);
                 });
@@ -138,6 +103,33 @@
                 alert("Erro ao carregar coletores devolvidos. Verifique o console.");
             }
         };
+
+        //excluir coletor do banco de dados. 
+
+        const excluircoletorBanco = async (id) => {
+            console.log("🔥 Função chamada com ID:", id);
+            if (!confirm("Deseja realmente excluir esse coletor ?")) return;
+
+            try {
+                const res = await fetch(`http://localhost:3000/api/coletores_devolvidos/${id}`, {
+                    method: "DELETE"
+                });
+
+                if (!res.ok) {
+                    alert("Erro ao excluir coletor!");
+                    return;
+                }
+
+                alert("Coletor excluído com sucesso");
+                location.reload();
+
+            } catch (error) {
+                console.error("Erro ao excluir coletor:", error);
+                alert("Erro de conexão com o servidor");
+            }
+        };
+
+
 
         // Função para exportar para Excel com cabeçalho azul e linhas zebradas
         function exportarExcel() {

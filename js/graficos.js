@@ -1,9 +1,12 @@
 async function fetchDados() {
-  const [base, uso] = await Promise.all([
-    fetch("http://localhost:3000/api/basecoletores").then(r => r.json()),
-    fetch("http://localhost:3000/api/coletores").then(r => r.json())
+  const [base, uso, devolvidos] = await Promise.all([
+    fetch("http://localhost:3000/api/basecoletores").then((r) => r.json()),
+    fetch("http://localhost:3000/api/coletores").then((r) => r.json()),
+    fetch("http://localhost:3000/api/coletores_devolvidos").then((r) =>
+      r.json()
+    ),
   ]);
-  return { base, uso };
+  return { base, uso, devolvidos };
 }
 
 function agruparPorData(lista, campoData, dias = "todos") {
@@ -25,19 +28,21 @@ function gerarGrafico(id, tipo, labels, dados, titulo, cores = null) {
   const ctx = document.getElementById(id).getContext("2d");
 
   // Definindo as cores: vermelho (#D5001C) e laranja (#FF8C00)
-  const paleta = cores || ["#D5001C", "#ff8c00da"];
+  const paleta = cores || ["#D5001C", "#fbe870"];
 
   new Chart(ctx, {
     type: tipo,
     data: {
       labels: labels,
-      datasets: [{
-        label: titulo,
-        data: dados,
-        backgroundColor: paleta,
-        borderColor: "#ffffff",
-        borderWidth: 1,
-      }],
+      datasets: [
+        {
+          label: titulo,
+          data: dados,
+          backgroundColor: paleta,
+          borderColor: "#ffffff",
+          borderWidth: 1,
+        },
+      ],
     },
     options: {
       responsive: true,
@@ -66,23 +71,40 @@ function gerarGrafico(id, tipo, labels, dados, titulo, cores = null) {
   });
 }
 
-
 async function gerarGraficosFiltrados() {
   const filtroDias = document.getElementById("filtroData").value;
   const dias = filtroDias === "todos" ? "todos" : parseInt(filtroDias);
-  const { base, uso } = await fetchDados();
+  const { base, uso, devolvidos } = await fetchDados();
 
   const totalUso = uso.length;
   const totalArmazem = base.length - totalUso;
 
   // Muda de "doughnut" para "pie"
-  gerarGrafico("graficoStatus", "pie", ["Em uso", "Armazenado"], [totalUso, totalArmazem], "Status dos Coletores");
+  gerarGrafico(
+    "graficoStatus",
+    "pie",
+    ["Em uso", "Em Standby"],
+    [totalUso, totalArmazem],
+    "Status dos Coletores"
+  );
 
   const retiradas = agruparPorData(uso, "hora_pegou", dias);
-  gerarGrafico("graficoLinhaData", "pie", Object.keys(retiradas), Object.values(retiradas), "Retiradas por Data");
+  gerarGrafico(
+    "graficoLinhaData",
+    "pie",
+    Object.keys(retiradas),
+    Object.values(retiradas),
+    "Retiradas por Data"
+  );
 
-  const devolucoes = agruparPorData(uso, "hora_baixa", dias);
-  gerarGrafico("graficoBaixas", "pie", Object.keys(devolucoes), Object.values(devolucoes), "Devoluções por Data");
+  const devolucoes = agruparPorData(devolvidos, "data_baixa", dias);
+  gerarGrafico(
+    "graficoBaixas",
+    "pie",
+    Object.keys(devolucoes),
+    Object.values(devolucoes),
+    "Devoluções por Data"
+  );
 }
 
 window.addEventListener("DOMContentLoaded", gerarGraficosFiltrados);
