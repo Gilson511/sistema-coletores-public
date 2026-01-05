@@ -200,8 +200,9 @@
         });
     }
 
+
     async function excluirColetor(id) {
-      if (!confirm("Deseja realmente excluir este coletor?")) return;
+      if (!confirm("Deseja realmente devolver este coletor?")) return;
 
       try {
         const linha = [...document.querySelectorAll("#tabelaColetores tbody tr")].find(tr =>
@@ -215,6 +216,14 @@
 
         // Coletar dados do coletor
         const inputs = linha.querySelectorAll("input");
+        const horaBaixa = inputs[7]?.value;
+
+        if (!horaBaixa) {
+          alert('Para devolver o coletor, preencha a data e hora de baixa!');
+          inputs[7].focus();
+          return;
+        }
+
         const coletorExcluido = {
           re: inputs[0]?.value || "",
           nome: inputs[1]?.value || "",
@@ -247,6 +256,7 @@
         alert("Erro ao excluir coletor. Verifique o console para mais detalhes.");
       }
     }
+
 
     function devolverColetor(botao) {
       const linha = botao.closest("tr");
